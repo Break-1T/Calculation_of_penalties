@@ -1,0 +1,64 @@
+﻿<Window x:Class="Calculation_of_penalties.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculation_of_penalties"
+        xmlns:vm="clr-namespace:Calculation_of_penalties.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File" Cursor="Hand"/>
+            <MenuItem Header="About" Cursor="Hand"/>
+            <MenuItem Header="Help" Cursor="Hand"/>
+        </Menu>
+        <Border BorderBrush="Black" BorderThickness="1" Margin="40" CornerRadius="20" Background="#d8e2e6">
+            <DockPanel>
+                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Розрахунок суми аліментів" FontSize="15" Margin="10"/>
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <WrapPanel>
+                        <TextBlock Text="Зарплата колишнього чоловіка: " FontSize="15"/>
+                        <TextBox MinWidth="100" FontSize="15" Margin="10 0 0 0"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="0 10 0 0">
+                        <TextBlock Text="Дата подачі позову про стягнення аліментів: " FontSize="15"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="50" FontSize="15"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="0 10 0 0">
+                        <TextBlock Text="Дата народження 1-ї дитини: " FontSize="15"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="50" FontSize="15"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="0 10 0 0">
+                        <TextBlock Text="Дата народження 2-ї дитини: " FontSize="15"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="50" FontSize="15"/>
+                    </WrapPanel>
+                    <WrapPanel Margin="0 10 0 0">
+                        <TextBlock Text="Дата народження 3-ї дитини: " FontSize="15"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="50" FontSize="15"/>
+                    </WrapPanel>
+
+                </StackPanel>
+            </DockPanel>
+        </Border>
+    </DockPanel>
+</Window>

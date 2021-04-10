@@ -24,5 +24,6 @@ namespace Calculation_of_penalties
         {
             InitializeComponent();
         }
+
     }
 }
