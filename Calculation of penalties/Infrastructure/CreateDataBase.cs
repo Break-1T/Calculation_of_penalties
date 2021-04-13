@@ -9,7 +9,7 @@ using Calculation_of_penalties.Models;
 
 namespace Calculation_of_penalties.Infrastructure
 {
-    class CreateDataBase:INotifyPropertyChanged
+    class CreateDataBase
     {
         public CreateDataBase(DateTime Start,DateTime End)
         {
@@ -40,6 +40,7 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 Penalty penalty = new Penalty()
                 {
+                    DataBase = this,
                     Id = i,
                     Date = Start,
                     OverdueDays = TotalDays,
@@ -51,12 +52,6 @@ namespace Calculation_of_penalties.Infrastructure
                 Penalties.Add(penalty);
                 Start = Start.AddMonths(1);
                 i++;
-            }
-
-            foreach (var j in Penalties)
-            {
-                j.Penalties = Penalties;
-                j.DataBase = this;
             }
         }
 
@@ -72,13 +67,5 @@ namespace Calculation_of_penalties.Infrastructure
             return days;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            
-        }
     }
 }

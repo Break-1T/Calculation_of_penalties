@@ -21,8 +21,7 @@ namespace Calculation_of_penalties.Models
         private double _AlimentTotal;
         private double _AlimentPaid;
 
-        public BindingList<Penalty> Penalties { get; set; }
-        public CreateDataBase DataBase { get; internal set; }
+        public CreateDataBase DataBase { get; set; }
 
         //№ п/п
         public int Id { get; set; }
@@ -54,6 +53,10 @@ namespace Calculation_of_penalties.Models
                 OnPropertyChanged("PenaltyValue");
                 OnPropertyChanged("EachDayPenalty");
                 OnPropertyChanged("EachYearPenalty");
+                foreach (var i in DataBase.Penalties)
+                {
+                    i.UpdatePropertys();
+                }
             }
         }
         
@@ -113,16 +116,19 @@ namespace Calculation_of_penalties.Models
             get
             {
                 double result = 0;
-                foreach (var i in Penalties)
+                foreach (var i in DataBase.Penalties)
                 {
                     result += i.EachDayPenalty;
                     if (i.Date == Date)
                         break;
                 }
-
-                DataBase.Penalties = Penalties;
                 return Math.Round(result,2,MidpointRounding.ToEven);
             }
+        }
+
+        public void UpdatePropertys()
+        {
+            OnPropertyChanged("EachYearPenalty");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

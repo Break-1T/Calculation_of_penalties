@@ -17,7 +17,7 @@
         <StackPanel>
             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <DataGrid ItemsSource="{Binding Data.Penalties, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto"
-                           CanUserAddRows="False" CanUserDeleteRows="False" TargetUpdated="{Binding}">
+                           CanUserAddRows="False" CanUserDeleteRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date,StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True"/>
