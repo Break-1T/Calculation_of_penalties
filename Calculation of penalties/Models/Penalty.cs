@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Calculation_of_penalties.Annotations;
+using Calculation_of_penalties.Infrastructure;
 
 namespace Calculation_of_penalties.Models
 {
@@ -14,15 +15,14 @@ namespace Calculation_of_penalties.Models
         public Penalty()
         {
             calendar = new GregorianCalendar();
-            EachYearPenaltyName = "EachYearPenalty";
         }
         private Calendar calendar;
         
         private double _AlimentTotal;
         private double _AlimentPaid;
-        public string EachYearPenaltyName { get; set; }
 
         public BindingList<Penalty> Penalties { get; set; }
+        public CreateDataBase DataBase { get; internal set; }
 
         //№ п/п
         public int Id { get; set; }
@@ -119,10 +119,12 @@ namespace Calculation_of_penalties.Models
                     if (i.Date == Date)
                         break;
                 }
-                return result;
+
+                DataBase.Penalties = Penalties;
+                return Math.Round(result,2,MidpointRounding.ToEven);
             }
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]

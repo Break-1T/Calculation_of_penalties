@@ -16,19 +16,20 @@
         </Menu>
         <StackPanel>
             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <DataGrid ItemsSource="{Binding Data.Penalties, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto">
+                <DataGrid ItemsSource="{Binding Data.Penalties, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto"
+                           CanUserAddRows="False" CanUserDeleteRows="False" TargetUpdated="{Binding}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date,StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість днів" Binding="{Binding Path=DaysInMonth}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість прострочених днів" Binding="{Binding Path= OverdueDays}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Нарахована сума аліментів " Binding="{Binding Path=AlimentTotal}"/>
-                        <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid}"/>
-                        <DataGridTextColumn Header="Сума, на яку нараховується пеня" Binding="{Binding Path=PenaltyForSum}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Пеня,%" Binding="{Binding Path=PenaltyPersentage}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Пеня,грн." Binding="{Binding Path=PenaltyValue}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Сума пені за прострочені дні, грн." Binding="{Binding Path=EachDayPenalty}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Загальна сума" Binding="{Binding Path=EachYearPenalty}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Нарахована сума аліментів " Binding="{Binding Path=AlimentTotal,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Сума, на яку нараховується пеня" Binding="{Binding Path=PenaltyForSum,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Пеня,%" Binding="{Binding Path=PenaltyPersentage,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Пеня,грн." Binding="{Binding Path=PenaltyValue,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Сума пені за прострочені дні, грн." Binding="{Binding Path=EachDayPenalty, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Загальна сума" Binding="{Binding Path=EachYearPenalty, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </ScrollViewer>

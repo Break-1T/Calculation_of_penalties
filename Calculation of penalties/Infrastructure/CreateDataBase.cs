@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Calculation_of_penalties.Annotations;
 using Calculation_of_penalties.Models;
 
 namespace Calculation_of_penalties.Infrastructure
 {
-    class CreateDataBase
+    class CreateDataBase:INotifyPropertyChanged
     {
         public CreateDataBase(DateTime Start,DateTime End)
         {
@@ -26,7 +28,9 @@ namespace Calculation_of_penalties.Infrastructure
         public DateTime End { get; set; }
         
         Calendar cal;
+        
         private int TotalDays;
+
         public BindingList<Penalty> Penalties { get; set; }
 
         public void Create()
@@ -50,7 +54,10 @@ namespace Calculation_of_penalties.Infrastructure
             }
 
             foreach (var j in Penalties)
+            {
                 j.Penalties = Penalties;
+                j.DataBase = this;
+            }
         }
 
         private int GetDaysInPeriod()
@@ -63,6 +70,15 @@ namespace Calculation_of_penalties.Infrastructure
                 starttime = starttime.AddMonths(1);
             }
             return days;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            
         }
     }
 }

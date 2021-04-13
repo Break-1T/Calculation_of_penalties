@@ -9,24 +9,15 @@ namespace Calculation_of_penalties.ViewModel
 {
     class DataBaseViewModel:Base.ViewModel
     {
-        private CreateDataBase _Data;
 
         public DataBaseViewModel(DateTime start, DateTime end)
         {
             StartTime = start;
             EndTime = end;
-            _Data = new CreateDataBase(StartTime, EndTime);
+            Data = new CreateDataBase(StartTime, EndTime);
         }
 
-        public CreateDataBase Data
-        {
-            get => _Data;
-            set
-            {
-                _Data = value;
-                OnPropertyChanged("Data");
-            }
-        }
+        public CreateDataBase Data { get; set; }
 
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
