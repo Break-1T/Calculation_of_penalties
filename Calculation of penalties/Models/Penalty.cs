@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
+using System.Runtime.CompilerServices;
 using System.Text;
+using Calculation_of_penalties.Annotations;
 
 namespace Calculation_of_penalties.Models
 {
-    class Penalty
+    class Penalty :INotifyPropertyChanged
     {
-        public Penalty(DateTime Date)
+        public Penalty()
         {
-            this.Date = Date;
             calendar = new GregorianCalendar();
         }
         private Calendar calendar;
+        
+        private double _AlimentTotal;
+        private double _AlimentPaid;
+
         //№ п/п
         public int Id { get; set; }
         
@@ -32,23 +38,79 @@ namespace Calculation_of_penalties.Models
         public int OverdueDays { get; set; }
         
         // нарахована сума аліментів
-        public double AlimentTotal { get; set; }
+        public double AlimentTotal
+        {
+            get => _AlimentTotal;
+            set
+            {
+                _AlimentTotal = value;
+                OnPropertyChanged("AlimentTotal");
+                OnPropertyChanged("PenaltyForSum");
+                OnPropertyChanged("PenaltyValue");
+                OnPropertyChanged("EachDayPenalty");
+                OnPropertyChanged("EachYearPenalty");
+            }
+        }
         
         // сплачена сума аліментів
-        public double AlimentPaid { get; set; }
-        
-        public double PenaltyFor { get; set; }
-        
+        public double AlimentPaid
+        {
+            get => _AlimentPaid;
+            set
+            {
+                _AlimentPaid = value;
+                OnPropertyChanged("AlimentPaid");
+                OnPropertyChanged("PenaltyForSum");
+                OnPropertyChanged("PenaltyValue");
+                OnPropertyChanged("EachDayPenalty");
+                OnPropertyChanged("EachYearPenalty");
+            }
+        }
+
+        //Сума, на яку нараховується пеня
+        public double PenaltyForSum
+        {
+            get
+            {
+                if (AlimentPaid == 0d)
+                {
+                    return AlimentTotal;
+                }
+                else if (AlimentPaid == AlimentTotal)
+                {
+                    return 0d;
+                }
+                else
+                {
+                    return 0d;
+                }
+            }
+        }
+
         //пеня,%
         public double PenaltyPersentage { get; set; }
         
         //пеня,грн.
-        public double PenaltyValue { get; set; }
+        public double PenaltyValue
+        {
+            get => PenaltyForSum * PenaltyPersentage;
+        }
         
         //сума пені за прострочені дні, грн.
-        public double EachDayPenalty { get; set; }
+        public double EachDayPenalty
+        {
+            get => Math.Round(OverdueDays * PenaltyValue,2,MidpointRounding.ToPositiveInfinity);
+        }
         
         //Загальна сума пені за прострочені дні, грн.
         public double EachYearPenalty { get; set; }
+        
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

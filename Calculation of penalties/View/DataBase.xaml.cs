@@ -18,9 +18,10 @@ namespace Calculation_of_penalties.View
     /// </summary>
     public partial class DataBase : Window
     {
-        public DataBase(DateTime start,DateTime end)
+        public DataBase()
         {
             InitializeComponent();
+
         }
     }
 }

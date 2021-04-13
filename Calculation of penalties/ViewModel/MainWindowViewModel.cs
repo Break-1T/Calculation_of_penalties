@@ -67,7 +67,10 @@ namespace Calculation_of_penalties.ViewModel
         
         private void OnOpenDataApplicationCommandExecuted(object p)
         {
-            DataView = new DataBase(_startDate.GetDateTime,_endDate.GetDateTime);
+            DataView = new DataBase()
+            {
+                DataContext = new DataBaseViewModel(_startDate.GetDateTime, _endDate.GetDateTime)
+            };
             DataView.Show();
         }
         private bool CanOpenDataApplicationCommandExecute(object p)
