@@ -18,45 +18,27 @@
         </Menu>
         <Border BorderBrush="Black" BorderThickness="1" Margin="40" CornerRadius="20" Background="#d8e2e6">
             <DockPanel>
-                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Розрахунок суми аліментів" FontSize="15" Margin="10"/>
+                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Розрахунок суми пені за несплачені аліменти" FontSize="15" Margin="10"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <WrapPanel>
-                        <TextBlock Text="Зарплата колишнього чоловіка: " FontSize="15"/>
-                        <TextBox MinWidth="100" FontSize="15" Margin="10 0 0 0"/>
+                    <WrapPanel Margin="0 10 0 0">
+                        <TextBlock Text="Початок стягнення аліментів: " FontSize="15" Margin="0 0 18 0"/>
+                        <TextBox MinWidth="30" FontSize="15" Text="{Binding StartDate.Day,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="30" FontSize="15" Text="{Binding StartDate.Month,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
+                        <TextBox MinWidth="50" FontSize="15" Margin="0 0 18 0" Text="{Binding StartDate.Year,UpdateSourceTrigger = PropertyChanged}"/>
+                        <Button Content="Открыть календарь"/>
                     </WrapPanel>
                     <WrapPanel Margin="0 10 0 0">
-                        <TextBlock Text="Дата подачі позову про стягнення аліментів: " FontSize="15"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBlock Text="Кінець про стягнення аліментів: " FontSize="15"/>
+                        <TextBox MinWidth="30" FontSize="15" Text="{Binding EndDate.Day,UpdateSourceTrigger = PropertyChanged}"/>
                         <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
+                        <TextBox MinWidth="30" FontSize="15" Text="{Binding EndDate.Month,UpdateSourceTrigger = PropertyChanged}"/>
                         <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="50" FontSize="15"/>
+                        <TextBox MinWidth="50" FontSize="15" Margin="0 0 18 0" Text="{Binding EndDate.Year,UpdateSourceTrigger = PropertyChanged}"/>
+                        <Button Content="Открыть календарь" Command="{Binding OpenCalendar}"/>
                     </WrapPanel>
-                    <WrapPanel Margin="0 10 0 0">
-                        <TextBlock Text="Дата народження 1-ї дитини: " FontSize="15"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
-                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
-                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="50" FontSize="15"/>
-                    </WrapPanel>
-                    <WrapPanel Margin="0 10 0 0">
-                        <TextBlock Text="Дата народження 2-ї дитини: " FontSize="15"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
-                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
-                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="50" FontSize="15"/>
-                    </WrapPanel>
-                    <WrapPanel Margin="0 10 0 0">
-                        <TextBlock Text="Дата народження 3-ї дитини: " FontSize="15"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
-                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="30" FontSize="15"/>
-                        <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="50" FontSize="15"/>
-                    </WrapPanel>
-
+                    <Button MaxHeight="100" MaxWidth="100" Content="Розрахувати" Command="{Binding OpenData}" Margin="0 50 0 0" Cursor="Hand"/>
                 </StackPanel>
             </DockPanel>
         </Border>

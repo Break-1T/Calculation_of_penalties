@@ -1,0 +1,37 @@
+﻿<Window x:Class="Calculation_of_penalties.View.DataBase"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Calculation_of_penalties.View"
+        xmlns:vm="clr-namespace:Calculation_of_penalties.ViewModel"
+        mc:Ignorable="d"
+        Title="DataBase" Height="650" Width="auto" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <vm:DataBaseViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File"/>
+        </Menu>
+        <StackPanel>
+            <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <DataGrid ItemsSource="{Binding Data.Penalties}" AutoGenerateColumns="False" MaxHeight="610" Width="auto">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id}"/>
+                        <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date}"/>
+                        <DataGridTextColumn Header="Кількість днів" Binding="{Binding Path=DaysInMonth}"/>
+                        <DataGridTextColumn Header="Кількість прострочених днів" Binding="{Binding Path= OverdueDays}"/>
+                        <DataGridTextColumn Header="Нарахована сума аліментів "/>
+                        <DataGridTextColumn Header="Сплачена сума аліментів"/>
+                        <DataGridTextColumn Header="Сума, на яку нараховується пеня"/>
+                        <DataGridTextColumn Header="Пеня,%"/>
+                        <DataGridTextColumn Header="Пеня,грн."/>
+                        <DataGridTextColumn Header="Сума пені за прострочені дні, грн."/>
+                        <DataGridTextColumn Header="Загальна сума"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </StackPanel>
+    </DockPanel>
+</Window>

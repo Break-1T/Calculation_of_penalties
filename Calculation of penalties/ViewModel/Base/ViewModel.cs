@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Calculation_of_penalties.Annotations;
 
 namespace Calculation_of_penalties.ViewModel.Base
