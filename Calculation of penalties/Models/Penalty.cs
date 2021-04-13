@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Calculation_of_penalties.Annotations;
@@ -13,11 +14,15 @@ namespace Calculation_of_penalties.Models
         public Penalty()
         {
             calendar = new GregorianCalendar();
+            EachYearPenaltyName = "EachYearPenalty";
         }
         private Calendar calendar;
         
         private double _AlimentTotal;
         private double _AlimentPaid;
+        public string EachYearPenaltyName { get; set; }
+
+        public BindingList<Penalty> Penalties { get; set; }
 
         //№ п/п
         public int Id { get; set; }
@@ -103,7 +108,20 @@ namespace Calculation_of_penalties.Models
         }
         
         //Загальна сума пені за прострочені дні, грн.
-        public double EachYearPenalty { get; set; }
+        public double EachYearPenalty
+        {
+            get
+            {
+                double result = 0;
+                foreach (var i in Penalties)
+                {
+                    result += i.EachDayPenalty;
+                    if (i.Date == Date)
+                        break;
+                }
+                return result;
+            }
+        }
         
         public event PropertyChangedEventHandler PropertyChanged;
 

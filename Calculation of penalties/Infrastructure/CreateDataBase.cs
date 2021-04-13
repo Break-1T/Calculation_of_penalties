@@ -42,13 +42,15 @@ namespace Calculation_of_penalties.Infrastructure
                     AlimentTotal = 0,
                     AlimentPaid = 0,
                     PenaltyPersentage = 0.01,
-                    EachYearPenalty = 0
                 };
-                TotalDays -= cal.GetDaysInMonth(Start.Year,Start.Month);
+                TotalDays -= cal.GetDaysInMonth(Start.Year, Start.Month);
                 Penalties.Add(penalty);
                 Start = Start.AddMonths(1);
                 i++;
             }
+
+            foreach (var j in Penalties)
+                j.Penalties = Penalties;
         }
 
         private int GetDaysInPeriod()
