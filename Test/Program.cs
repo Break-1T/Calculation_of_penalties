@@ -6,7 +6,8 @@ namespace Test
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            double n = 6.255;
+            Console.WriteLine(Math.Round(n,2,MidpointRounding.ToEven));
         }
     }
 }

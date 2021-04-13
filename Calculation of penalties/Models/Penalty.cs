@@ -93,13 +93,13 @@ namespace Calculation_of_penalties.Models
         //пеня,грн.
         public double PenaltyValue
         {
-            get => PenaltyForSum * PenaltyPersentage;
+            get => Math.Round(PenaltyForSum * PenaltyPersentage,2,MidpointRounding.ToEven);
         }
         
         //сума пені за прострочені дні, грн.
         public double EachDayPenalty
         {
-            get => Math.Round(OverdueDays * PenaltyValue,2,MidpointRounding.ToPositiveInfinity);
+            get => Math.Round(OverdueDays * PenaltyValue,2,MidpointRounding.ToEven);
         }
         
         //Загальна сума пені за прострочені дні, грн.
