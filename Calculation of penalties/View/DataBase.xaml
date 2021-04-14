@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculation_of_penalties.View"
         xmlns:vm="clr-namespace:Calculation_of_penalties.ViewModel"
         mc:Ignorable="d"
-        Title="DataBase" Height="650" Width="1280" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="DataBase" Height="650" Width="1400" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File" Cursor="Hand">
@@ -25,6 +25,7 @@
                         <DataGridTextColumn Header="Кількість прострочених днів" Binding="{Binding Path= OverdueDays}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Нарахована сума аліментів " Binding="{Binding Path=AlimentTotal,UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Розрахунок проплати" Binding="{Binding Path=Overpayment,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Сума, на яку нараховується пеня" Binding="{Binding Path=PenaltyForSum,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Пеня,%" Binding="{Binding Path=PenaltyPersentage,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Пеня,грн." Binding="{Binding Path=PenaltyValue,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>

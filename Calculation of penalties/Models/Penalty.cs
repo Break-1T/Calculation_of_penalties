@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using Calculation_of_penalties.Annotations;
 using Calculation_of_penalties.Infrastructure;
@@ -49,6 +50,7 @@ namespace Calculation_of_penalties.Models
             {
                 _AlimentTotal = value;
                 OnPropertyChanged("AlimentTotal");
+                OnPropertyChanged("Overpayment");
                 OnPropertyChanged("PenaltyForSum");
                 OnPropertyChanged("PenaltyValue");
                 OnPropertyChanged("EachDayPenalty");
@@ -68,29 +70,57 @@ namespace Calculation_of_penalties.Models
             {
                 _AlimentPaid = value;
                 OnPropertyChanged("AlimentPaid");
+                OnPropertyChanged("Overpayment");
                 OnPropertyChanged("PenaltyForSum");
                 OnPropertyChanged("PenaltyValue");
                 OnPropertyChanged("EachDayPenalty");
                 OnPropertyChanged("EachYearPenalty");
+                foreach (var i in DataBase.Penalties)
+                {
+                    i.UpdatePropertys();
+                }
             }
         }
 
+        //Розрахунок проплати
+        public double Overpayment
+        {
+            get
+            {
+                double result=0;
+
+                if (DataBase.Penalties[0].Date == this.Date)
+                {
+                    result = AlimentTotal - AlimentPaid;
+                }
+                else
+                {
+                    if (DataBase.Penalties[GetNumInArray() - 1].Overpayment < 0)
+                    {
+                        result = AlimentTotal - AlimentPaid + DataBase.Penalties[GetNumInArray() - 1].Overpayment;
+                    }
+                    else
+                    {
+                        result = AlimentTotal - AlimentPaid;
+                    }
+                }
+
+                return result;
+            }
+        }
+        
         //Сума, на яку нараховується пеня
         public double PenaltyForSum
         {
             get
             {
-                if (AlimentPaid == 0d)
+                if (Overpayment < 0)
                 {
-                    return AlimentTotal;
-                }
-                else if (AlimentPaid == AlimentTotal)
-                {
-                    return 0d;
+                    return 0;
                 }
                 else
                 {
-                    return 0d;
+                    return Overpayment;
                 }
             }
         }
@@ -128,9 +158,24 @@ namespace Calculation_of_penalties.Models
 
         public void UpdatePropertys()
         {
+            OnPropertyChanged("Overpayment");
+            OnPropertyChanged("PenaltyForSum");
+            OnPropertyChanged("PenaltyValue");
+            OnPropertyChanged("EachDayPenalty");
             OnPropertyChanged("EachYearPenalty");
         }
 
+        private int GetNumInArray()
+        {
+            int i;
+            for (i=0; i < DataBase.Penalties.Count; i++)
+            {
+                if (DataBase.Penalties[i].Date == this.Date)
+                    break;
+            }
+            return i;
+        }
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         [NotifyPropertyChangedInvocator]
