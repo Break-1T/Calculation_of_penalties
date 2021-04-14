@@ -10,13 +10,14 @@
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File" Cursor="Hand">
-                <MenuItem Header="Export to Excel" Cursor="Hand"/>
-                <MenuItem Header="Export to Word" Cursor="Hand"/>
+                <MenuItem Header="Сохранить" Command="{Binding Path=OpenSaveDialog}" Cursor="Hand"/>
+                <MenuItem Header="Открыть" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
+                <MenuItem Header="Export to Excel" Cursor="Hand" Command="{Binding Path=OpenExportDialog}"/>
             </MenuItem>
         </Menu>
         <StackPanel>
             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <DataGrid ItemsSource="{Binding Data.Penalties, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto"
+                <DataGrid ItemsSource="{Binding Data.PenaltiesCalc, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto"
                            CanUserAddRows="False" CanUserDeleteRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id}" IsReadOnly="True"/>
@@ -27,7 +28,7 @@
                         <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid,UpdateSourceTrigger=PropertyChanged}"/>
                         <DataGridTextColumn Header="Розрахунок проплати" Binding="{Binding Path=Overpayment,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Сума, на яку нараховується пеня" Binding="{Binding Path=PenaltyForSum,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Пеня,%" Binding="{Binding Path=PenaltyPersentage,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Пеня,%" Binding="{Binding Path=PenaltyPersentage,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:P1}}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Пеня,грн." Binding="{Binding Path=PenaltyValue,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Сума пені за прострочені дні, грн." Binding="{Binding Path=EachDayPenalty, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Загальна сума" Binding="{Binding Path=EachYearPenalty, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -9,7 +10,7 @@ using Calculation_of_penalties.Models;
 
 namespace Calculation_of_penalties.Infrastructure
 {
-    class CreateDataBase
+    class CreateDataBase:INotifyPropertyChanged
     {
         public CreateDataBase(DateTime Start,DateTime End)
         {
@@ -19,7 +20,8 @@ namespace Calculation_of_penalties.Infrastructure
             this.End = End;
             
             TotalDays = GetDaysInPeriod();
-            
+
+            PenaltiesCalc = new BindingList<PenaltyCalculation>();
             Penalties = new BindingList<Penalty>();
             Create();
 
@@ -31,6 +33,7 @@ namespace Calculation_of_penalties.Infrastructure
         
         private int TotalDays;
 
+        public BindingList<PenaltyCalculation> PenaltiesCalc { get; set; }
         public BindingList<Penalty> Penalties { get; set; }
 
         public void Create()
@@ -38,7 +41,7 @@ namespace Calculation_of_penalties.Infrastructure
             int i = 1;
             while (Start<=End)
             {
-                Penalty penalty = new Penalty()
+                PenaltyCalculation penalty = new PenaltyCalculation()
                 {
                     DataBase = this,
                     Id = i,
@@ -49,10 +52,64 @@ namespace Calculation_of_penalties.Infrastructure
                     PenaltyPersentage = 0.01,
                 };
                 TotalDays -= cal.GetDaysInMonth(Start.Year, Start.Month);
-                Penalties.Add(penalty);
+                PenaltiesCalc.Add(penalty);
                 Start = Start.AddMonths(1);
                 i++;
             }
+        }
+
+        public BindingList<Penalty> GetDataCopy()
+        {
+            BindingList<Penalty> penalties = new BindingList<Penalty>();
+            foreach (var j in PenaltiesCalc)
+            {
+                Penalty penalty = new Penalty()
+                {
+                    Id = j.Id,
+                    AlimentPaid = j.AlimentPaid,
+                    AlimentTotal = j.AlimentTotal,
+                    Date = j.Date,
+                    DaysInMonth = j.DaysInMonth,
+                    EachDayPenalty = j.EachDayPenalty,
+                    EachYearPenalty = j.EachYearPenalty,
+                    OverdueDays = j.OverdueDays,
+                    Overpayment = j.Overpayment,
+                    PenaltyForSum = j.PenaltyForSum,
+                    PenaltyPersentage = j.PenaltyPersentage,
+                    PenaltyValue = j.PenaltyValue
+                };
+                penalties.Add(penalty);
+            }
+
+            return penalties;
+        }
+
+        public void SetDataCopy(BindingList<Penalty> list)
+        {
+            BindingList<PenaltyCalculation> penalties = new BindingList<PenaltyCalculation>();
+            foreach (var j in list)
+            {
+                PenaltyCalculation penalty = new PenaltyCalculation()
+                {
+                    DataBase = this,
+                    Id = j.Id,
+                    AlimentPaid = j.AlimentPaid,
+                    AlimentTotal = j.AlimentTotal,
+                    Date = j.Date,
+                    DaysInMonth = j.DaysInMonth,
+                    EachDayPenalty = j.EachDayPenalty,
+                    EachYearPenalty = j.EachYearPenalty,
+                    OverdueDays = j.OverdueDays,
+                    Overpayment = j.Overpayment,
+                    PenaltyForSum = j.PenaltyForSum,
+                    PenaltyPersentage = j.PenaltyPersentage,
+                    PenaltyValue = j.PenaltyValue
+                };
+                penalties.Add(penalty);
+            }
+
+            PenaltiesCalc = penalties;
+            OnPropertyChanged("PenaltiesCalc");
         }
 
         private int GetDaysInPeriod()
@@ -67,5 +124,12 @@ namespace Calculation_of_penalties.Infrastructure
             return days;
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        [NotifyPropertyChangedInvocator]
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }
