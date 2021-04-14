@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -21,8 +22,8 @@ namespace Calculation_of_penalties.Infrastructure
             
             TotalDays = GetDaysInPeriod();
 
-            PenaltiesCalc = new BindingList<PenaltyCalculation>();
-            Penalties = new BindingList<Penalty>();
+            PenaltiesCalc = new ObservableCollection<PenaltyCalculation>();
+            Penalties = new ObservableCollection<Penalty>();
             Create();
 
         }
@@ -33,8 +34,8 @@ namespace Calculation_of_penalties.Infrastructure
         
         private int TotalDays;
 
-        public BindingList<PenaltyCalculation> PenaltiesCalc { get; set; }
-        public BindingList<Penalty> Penalties { get; set; }
+        public ObservableCollection<PenaltyCalculation> PenaltiesCalc { get; set; }
+        public ObservableCollection<Penalty> Penalties { get; set; }
 
         public void Create()
         {
@@ -58,9 +59,9 @@ namespace Calculation_of_penalties.Infrastructure
             }
         }
 
-        public BindingList<Penalty> GetDataCopy()
+        public ObservableCollection<Penalty> GetDataCopy()
         {
-            BindingList<Penalty> penalties = new BindingList<Penalty>();
+            ObservableCollection<Penalty> penalties = new ObservableCollection<Penalty>();
             foreach (var j in PenaltiesCalc)
             {
                 Penalty penalty = new Penalty()
@@ -84,9 +85,9 @@ namespace Calculation_of_penalties.Infrastructure
             return penalties;
         }
 
-        public void SetDataCopy(BindingList<Penalty> list)
+        public void SetDataCopy(ObservableCollection<Penalty> list)
         {
-            BindingList<PenaltyCalculation> penalties = new BindingList<PenaltyCalculation>();
+            ObservableCollection<PenaltyCalculation> penalties = new ObservableCollection<PenaltyCalculation>();
             foreach (var j in list)
             {
                 PenaltyCalculation penalty = new PenaltyCalculation()

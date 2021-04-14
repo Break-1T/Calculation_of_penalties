@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -19,7 +20,7 @@ namespace Calculation_of_penalties.Services
 
         public string Path { get; }
 
-        public void SaveData(BindingList<Penalty> list)
+        public void SaveData(ObservableCollection<Penalty> list)
         {
             using (var helper = new ExcelPackage(new FileInfo(Path)))
             {

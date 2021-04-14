@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Text;
@@ -17,23 +18,23 @@ namespace Calculation_of_penalties.Services
 
         private readonly string _path;
 
-        public BindingList<Penalty> LoadData()
+        public ObservableCollection<Penalty> LoadData()
         {
             var fileExists = File.Exists(_path);
             if (!fileExists)
             {
                 File.Create(_path).Dispose();
-                return new BindingList<Penalty>();
+                return new ObservableCollection<Penalty>();
             }
 
             using (StreamReader mReader = File.OpenText(_path))
             {
                 var filetext = mReader.ReadToEnd();
-                return JsonConvert.DeserializeObject<BindingList<Penalty>>(filetext);
+                return JsonConvert.DeserializeObject<ObservableCollection<Penalty>>(filetext);
             }
         }
 
-        public void SaveData(BindingList<Penalty> myList)
+        public void SaveData(ObservableCollection<Penalty> myList)
         {
             using (StreamWriter myWriter = File.CreateText(_path))
             {

@@ -21,7 +21,7 @@
                 <DataGrid ItemsSource="{Binding Data.PenaltiesCalc, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto"
                            CanUserAddRows="False" CanUserDeleteRows="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date,StringFormat={}{0:Y}}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість днів" Binding="{Binding Path=DaysInMonth}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість прострочених днів" Binding="{Binding Path= OverdueDays}" IsReadOnly="True"/>
