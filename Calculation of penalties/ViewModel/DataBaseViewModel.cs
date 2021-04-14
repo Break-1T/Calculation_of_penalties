@@ -19,14 +19,19 @@ namespace Calculation_of_penalties.ViewModel
             StartTime = start;
             EndTime = end;
             Data = new CreateDataBase(StartTime, EndTime);
-            OpenSaveDialog = new RelayCommand(OnOpenSaveDialogApplicationCommandExecuted,
-                CanOpenSaveDialogApplicationCommandExecute);
-            OpenLoadDialog = new RelayCommand(OnOpenLoadDialogApplicationCommandExecuted,
-                CanOpenLoadDialogApplicationCommandExecute);
+            
+            OpenSaveDialog = new RelayCommand(OnOpenSaveDialogAppCommandExecuted,
+                CanOpenSaveDialogAppCommandExecute);
+            OpenLoadDialog = new RelayCommand(OnOpenLoadDialogAppCommandExecuted,
+                CanOpenLoadDialogAppCommandExecute);
+            OpenExportDialog =
+                new RelayCommand(OnOpenExportDialogAppCommandExecuted, CanOpenExportDialogAppCommandExecute);
+            Exit = new RelayCommand(OnExitAppCommandExecuted,CanExitAppCommandExecute);
         }
 
         public CreateDataBase Data { get; set; }
         private FileIOService fileio;
+        private ExcelHelper excelHelper;
         
         private bool _setcopy;
         public bool SetCopy
@@ -47,31 +52,53 @@ namespace Calculation_of_penalties.ViewModel
 
         #region Комманды
 
-        public ICommand OpenSaveDialog { get; set; }
-        public ICommand OpenLoadDialog { get; set; }
-        public ICommand OpenExportDialog { get; set; }
+        public ICommand OpenSaveDialog { get;}
+        public ICommand OpenLoadDialog { get; }
+        public ICommand OpenExportDialog { get; }
+        public ICommand Exit { get; }
 
 
-        private void OnOpenSaveDialogApplicationCommandExecuted(object p)
+        private void OnOpenSaveDialogAppCommandExecuted(object p)
         {
             SaveFile = new SaveFileDialog();
             SaveFile.ShowDialog();
             fileio = new FileIOService(SaveFile.FileName + ".json");
             fileio.SaveData(Data.GetDataCopy());
         }
-        private bool CanOpenSaveDialogApplicationCommandExecute(object p)
+        private bool CanOpenSaveDialogAppCommandExecute(object p)
         {
             return true;
         }
 
-        private void OnOpenLoadDialogApplicationCommandExecuted(object p)
+        private void OnOpenLoadDialogAppCommandExecuted(object p)
         {
             OpenFile = new OpenFileDialog();
             OpenFile.ShowDialog();
             fileio = new FileIOService(OpenFile.FileName);
             Data.SetDataCopy(fileio.LoadData());
         }
-        private bool CanOpenLoadDialogApplicationCommandExecute(object p)
+        private bool CanOpenLoadDialogAppCommandExecute(object p)
+        {
+            return true;
+        }
+
+        private void OnOpenExportDialogAppCommandExecuted(object p)
+        {
+            SaveFile = new SaveFileDialog();
+            SaveFile.ShowDialog();
+            excelHelper = new ExcelHelper(SaveFile.FileName+".xlsx");
+            excelHelper.SaveData(Data.GetDataCopy());
+        }
+        private bool CanOpenExportDialogAppCommandExecute(object p)
+        {
+            return true;
+        }
+
+        private void OnExitAppCommandExecuted(object p)
+        {
+            App.Current.Windows[0].Close();
+        }
+        private bool CanExitAppCommandExecute(object p)
         {
             return true;
         }

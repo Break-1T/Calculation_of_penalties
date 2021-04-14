@@ -14,6 +14,7 @@
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File" Cursor="Hand">
                 <MenuItem Header="Загрузить таблицу" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
+                <MenuItem Header="Закрыть" Command="{Binding Path=Exit}"/>
             </MenuItem>
             <MenuItem Header="About" Cursor="Hand"/>
             <MenuItem Header="Help" Cursor="Hand"/>

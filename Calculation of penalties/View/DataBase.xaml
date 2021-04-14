@@ -13,6 +13,7 @@
                 <MenuItem Header="Сохранить" Command="{Binding Path=OpenSaveDialog}" Cursor="Hand"/>
                 <MenuItem Header="Открыть" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
                 <MenuItem Header="Export to Excel" Cursor="Hand" Command="{Binding Path=OpenExportDialog}"/>
+                <MenuItem Header="Закрыть" Command="{Binding Exit}" Cursor="Hand"/>
             </MenuItem>
         </Menu>
         <StackPanel>

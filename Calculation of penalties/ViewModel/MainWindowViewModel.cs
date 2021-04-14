@@ -16,16 +16,17 @@ namespace Calculation_of_penalties.ViewModel
     {
         public MainWindowViewModel()
         {
-            OpenCalendar = new RelayCommand(OnOpenCalendarApplicationCommandExecuted, CanOpenCalendarApplicationCommandExecute);
-            OpenData = new RelayCommand(OnOpenDataApplicationCommandExecuted, CanOpenDataApplicationCommandExecute);
-            OpenLoadDialog = new RelayCommand(OnOpenLoadDialogApplicationCommandExecuted, CanOpenLoadDialogApplicationCommandExecute);
+            OpenCalendar = new RelayCommand(OnOpenCalendarAppCommandExecuted, CanOpenCalendarAppCommandExecute);
+            OpenData = new RelayCommand(OnOpenDataAppCommandExecuted, CanOpenDataAppCommandExecute);
+            OpenLoadDialog = new RelayCommand(OnOpenLoadDialogAppCommandExecuted, CanOpenLoadDialogAppCommandExecute);
+            Exit = new RelayCommand(OnExitAppCommandExecuted, CanExitAppCommandExecute);
             
             _startDate = new Date();
             _endDate = new Date();
         }
 
         public DataBase DataView { get; set; }
-
+        public OpenFileDialog OpenFile { get; private set; }
 
         #region Ввод дат
 
@@ -59,18 +60,18 @@ namespace Calculation_of_penalties.ViewModel
         public ICommand OpenData { get; }
         public ICommand OpenCalendar { get; }
         public ICommand OpenLoadDialog { get; }
-        public OpenFileDialog OpenFile { get; private set; }
-
-        private void OnOpenCalendarApplicationCommandExecuted(object p)
+        public ICommand Exit { get; }
+        
+        private void OnOpenCalendarAppCommandExecuted(object p)
         {
 
         }
-        private bool CanOpenCalendarApplicationCommandExecute(object p)
+        private bool CanOpenCalendarAppCommandExecute(object p)
         {
             return true;
         }
         
-        private void OnOpenDataApplicationCommandExecuted(object p)
+        private void OnOpenDataAppCommandExecuted(object p)
         {
             DataView = new DataBase()
             {
@@ -79,12 +80,12 @@ namespace Calculation_of_penalties.ViewModel
             DataView.Show();
             App.Current.MainWindow.Close();
         }
-        private bool CanOpenDataApplicationCommandExecute(object p)
+        private bool CanOpenDataAppCommandExecute(object p)
         {
             return true;
         }
 
-        private void OnOpenLoadDialogApplicationCommandExecuted(object p)
+        private void OnOpenLoadDialogAppCommandExecuted(object p)
         {
             #region Avoiding exception
 
@@ -108,11 +109,20 @@ namespace Calculation_of_penalties.ViewModel
             DataView.Show();
             App.Current.MainWindow.Close();
         }
-        private bool CanOpenLoadDialogApplicationCommandExecute(object p)
+        private bool CanOpenLoadDialogAppCommandExecute(object p)
+        {
+            return true;
+        }
+        
+        private void OnExitAppCommandExecuted(object p)
+        {
+            Application.Current.MainWindow.Close();
+        }
+        private bool CanExitAppCommandExecute(object p)
         {
             return true;
         }
         #endregion
-        
+
     }
 }
