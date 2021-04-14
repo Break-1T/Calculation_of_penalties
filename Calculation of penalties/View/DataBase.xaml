@@ -22,7 +22,7 @@
                            CanUserAddRows="False" CanUserDeleteRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date,StringFormat={}{0:dd/MM/yyyy}}" IsReadOnly="True"/>
+                        <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date,StringFormat={}{0:Y}}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість днів" Binding="{Binding Path=DaysInMonth}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість прострочених днів" Binding="{Binding Path= OverdueDays}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Нарахована сума аліментів " Binding="{Binding Path=AlimentTotal,UpdateSourceTrigger=PropertyChanged}"/>

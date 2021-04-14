@@ -91,11 +91,7 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 _AlimentTotal = value;
                 OnPropertyChanged("AlimentTotal");
-                OnPropertyChanged("Overpayment");
-                OnPropertyChanged("PenaltyForSum");
-                OnPropertyChanged("PenaltyValue");
-                OnPropertyChanged("EachDayPenalty");
-                OnPropertyChanged("EachYearPenalty");
+
                 foreach (var i in DataBase.PenaltiesCalc)
                 {
                     i.UpdatePropertys();
@@ -111,11 +107,7 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 _AlimentPaid = value;
                 OnPropertyChanged("AlimentPaid");
-                OnPropertyChanged("Overpayment");
-                OnPropertyChanged("PenaltyForSum");
-                OnPropertyChanged("PenaltyValue");
-                OnPropertyChanged("EachDayPenalty");
-                OnPropertyChanged("EachYearPenalty");
+
                 foreach (var i in DataBase.PenaltiesCalc)
                 {
                     i.UpdatePropertys();

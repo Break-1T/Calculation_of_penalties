@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -41,7 +42,7 @@ namespace Calculation_of_penalties.Services
                 {
                     int k = 1;
                     firstsheet.SetValue(j, k++, i.Id);
-                    firstsheet.SetValue(j, k++, i.Date);
+                    firstsheet.SetValue(j, k++, i.Date.ToString("Y"));
                     firstsheet.SetValue(j, k++, i.DaysInMonth);
                     firstsheet.SetValue(j, k++, i.OverdueDays);
                     firstsheet.SetValue(j, k++, i.AlimentTotal);
