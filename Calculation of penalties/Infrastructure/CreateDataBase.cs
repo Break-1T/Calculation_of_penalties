@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Calculation_of_penalties.Annotations;
@@ -21,8 +22,7 @@ namespace Calculation_of_penalties.Infrastructure
             this.End = End;
             
             TotalDays = GetDaysInPeriod();
-
-            PenaltiesCalc = new ObservableCollection<PenaltyCalculation>();
+            Penalty = new ObservableCollection<PenaltyCalculation>();
             Penalties = new ObservableCollection<Penalty>();
             Create();
 
@@ -34,7 +34,17 @@ namespace Calculation_of_penalties.Infrastructure
         
         private int TotalDays;
 
-        public ObservableCollection<PenaltyCalculation> PenaltiesCalc { get; set; }
+        private ObservableCollection<PenaltyCalculation> _Penalty;
+
+        public ObservableCollection<PenaltyCalculation> Penalty
+        {
+            get => _Penalty;
+            set
+            {
+                _Penalty = value;
+                OnPropertyChanged("Penalty");
+            }
+        }
         public ObservableCollection<Penalty> Penalties { get; set; }
 
         public void Create()
@@ -42,18 +52,17 @@ namespace Calculation_of_penalties.Infrastructure
             int i = 1;
             while (Start<=End)
             {
-                PenaltyCalculation penalty = new PenaltyCalculation()
+                Penalty.Add(new PenaltyCalculation()
                 {
-                    DataBase = this,
+                    Data = this,
                     Id = i,
                     Date = Start,
                     OverdueDays = TotalDays,
                     AlimentTotal = 0,
                     AlimentPaid = 0,
-                    PenaltyPersentage = 0.01,
-                };
+                    PenaltyPersentage = 0.01
+                });
                 TotalDays -= cal.GetDaysInMonth(Start.Year, Start.Month);
-                PenaltiesCalc.Add(penalty);
                 Start = Start.AddMonths(1);
                 i++;
             }
@@ -62,7 +71,7 @@ namespace Calculation_of_penalties.Infrastructure
         public ObservableCollection<Penalty> GetDataCopy()
         {
             ObservableCollection<Penalty> penalties = new ObservableCollection<Penalty>();
-            foreach (var j in PenaltiesCalc)
+            foreach (var j in Penalty)
             {
                 Penalty penalty = new Penalty()
                 {
@@ -92,7 +101,6 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 PenaltyCalculation penalty = new PenaltyCalculation()
                 {
-                    DataBase = this,
                     Id = j.Id,
                     AlimentPaid = j.AlimentPaid,
                     AlimentTotal = j.AlimentTotal,
@@ -109,7 +117,7 @@ namespace Calculation_of_penalties.Infrastructure
                 penalties.Add(penalty);
             }
 
-            PenaltiesCalc = penalties;
+            Penalty = penalties;
             OnPropertyChanged("PenaltiesCalc");
         }
 
@@ -131,6 +139,11 @@ namespace Calculation_of_penalties.Infrastructure
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public void Update()
+        {
+            OnPropertyChanged("PenaltiesCalc");
         }
     }
 }

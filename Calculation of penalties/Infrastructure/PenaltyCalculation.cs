@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
@@ -17,24 +18,18 @@ namespace Calculation_of_penalties.Infrastructure
         }
         private Calendar calendar;
 
-        private double _AlimentTotal;
-        private double _AlimentPaid;
-
         private int id;
         private DateTime date;
         private int daysinmonth;
+        private double _AlimentTotal;
+        private double _AlimentPaid;
         private int overduedays;
-        private double alimenttotal;
-        private double alimentpaid;
         private double overpayment;
         private double penaltyforsum;
         private double penaltypersentage;
         private double penaltyvalue;
         private double eachdaypenalty;
         private double eachyearpenalty;
-
-
-        public CreateDataBase DataBase { get; set; }
 
         //№ п/п
         public int Id
@@ -91,11 +86,8 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 _AlimentTotal = value;
                 OnPropertyChanged("AlimentTotal");
-
-                foreach (var i in DataBase.PenaltiesCalc)
-                {
+                foreach (var i in Data.Penalty)
                     i.UpdatePropertys();
-                }
             }
         }
 
@@ -107,11 +99,8 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 _AlimentPaid = value;
                 OnPropertyChanged("AlimentPaid");
-
-                foreach (var i in DataBase.PenaltiesCalc)
-                {
+                foreach (var i in Data.Penalty)
                     i.UpdatePropertys();
-                }
             }
         }
 
@@ -120,25 +109,7 @@ namespace Calculation_of_penalties.Infrastructure
         {
             get
             {
-                double result = 0;
-
-                if (DataBase.PenaltiesCalc[0].Date == this.Date)
-                {
-                    result = AlimentTotal - AlimentPaid;
-                }
-                else
-                {
-                    if (DataBase.PenaltiesCalc[GetNumInArray() - 1].Overpayment < 0)
-                    {
-                        result = AlimentTotal - AlimentPaid + DataBase.PenaltiesCalc[GetNumInArray() - 1].Overpayment;
-                    }
-                    else
-                    {
-                        result = AlimentTotal - AlimentPaid;
-                    }
-                }
-
-                return result;
+                return overpayment;
             }
             set
             {
@@ -152,14 +123,7 @@ namespace Calculation_of_penalties.Infrastructure
         {
             get
             {
-                if (Overpayment < 0)
-                {
-                    return 0;
-                }
-                else
-                {
-                    return Overpayment;
-                }
+                return penaltyforsum;
             }
             set
             {
@@ -182,7 +146,7 @@ namespace Calculation_of_penalties.Infrastructure
         //пеня,грн.
         public double PenaltyValue
         {
-            get => Math.Round(PenaltyForSum * PenaltyPersentage, 2, MidpointRounding.ToEven);
+            get => penaltyvalue;
             set
             {
                 penaltyvalue = value;
@@ -193,7 +157,7 @@ namespace Calculation_of_penalties.Infrastructure
         //сума пені за прострочені дні, грн.
         public double EachDayPenalty
         {
-            get => Math.Round(OverdueDays * PenaltyValue, 2, MidpointRounding.ToEven);
+            get => eachdaypenalty;
             set
             {
                 eachdaypenalty = value;
@@ -206,37 +170,86 @@ namespace Calculation_of_penalties.Infrastructure
         {
             get
             {
-                double result = 0;
-                foreach (var i in DataBase.PenaltiesCalc)
-                {
-                    result += i.EachDayPenalty;
-                    if (i.Date == Date)
-                        break;
-                }
-                return Math.Round(result, 2, MidpointRounding.ToEven);
+                return eachyearpenalty;
             }
             set
             {
-                eachdaypenalty = value;
+                eachyearpenalty = value;
                 OnPropertyChanged("EachYearPenalty");
             }
         }
 
+        public CreateDataBase Data { get; set; }
+
         public void UpdatePropertys()
         {
-            OnPropertyChanged("Overpayment");
-            OnPropertyChanged("PenaltyForSum");
-            OnPropertyChanged("PenaltyValue");
-            OnPropertyChanged("EachDayPenalty");
-            OnPropertyChanged("EachYearPenalty");
+           SetOverpayment();
+           SetPenaltyForSum();
+           SetPenaltyValue();
+           SetEachdayPenalty();
+           SetEachYearPenalty();
+        }
+
+        private void SetEachdayPenalty()
+        {
+            EachDayPenalty = Math.Round(OverdueDays * PenaltyValue, 2, MidpointRounding.ToEven);
+        }
+        private void SetEachYearPenalty()
+        {
+            double result = 0;
+            foreach (var i in Data.Penalty)
+            {
+                result += i.EachDayPenalty;
+                if (i.Date == Date)
+                    break;
+            }
+            EachYearPenalty = Math.Round(result, 2, MidpointRounding.ToEven);
+        }
+        private void SetPenaltyValue()
+        {
+            PenaltyValue = Math.Round(PenaltyForSum * PenaltyPersentage, 2, MidpointRounding.ToEven);
+        }
+        private void SetPenaltyForSum()
+        {
+            if (Overpayment < 0)
+                PenaltyForSum = 0;
+            else
+                PenaltyForSum = Overpayment;
+        }
+        private void SetOverpayment()
+        {
+            if (Data.Penalty.Count == 0)
+            {
+                Overpayment = AlimentTotal - AlimentPaid;
+
+            }
+            else
+            {
+                if (Data.Penalty[0].Date == this.Date)
+                {
+                    Overpayment = AlimentTotal - AlimentPaid;
+                    return;
+                }
+                else
+                {
+                    if (Data.Penalty[GetNumInArray() - 1].Overpayment < 0)
+                    {
+                        Overpayment = AlimentTotal - AlimentPaid + Data.Penalty[GetNumInArray() - 1].Overpayment;
+                    }
+                    else
+                    {
+                        Overpayment = AlimentTotal - AlimentPaid;
+                    }
+                }
+            }
         }
 
         private int GetNumInArray()
         {
             int i;
-            for (i = 0; i < DataBase.PenaltiesCalc.Count; i++)
+            for (i = 0; i < Data.Penalty.Count; i++)
             {
-                if (DataBase.PenaltiesCalc[i].Date == this.Date)
+                if (Data.Penalty[i].Date == this.Date)
                     break;
             }
             return i;
