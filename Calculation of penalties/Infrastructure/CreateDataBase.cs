@@ -101,6 +101,7 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 PenaltyCalculation penalty = new PenaltyCalculation()
                 {
+                    Data=this,
                     Id = j.Id,
                     AlimentPaid = j.AlimentPaid,
                     AlimentTotal = j.AlimentTotal,
