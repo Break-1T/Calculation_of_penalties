@@ -14,11 +14,10 @@ namespace Calculation_of_penalties.ViewModel
     class DataBaseViewModel : Base.ViewModel
     {
 
-        public DataBaseViewModel(DateTime start, DateTime end)
+        public DataBaseViewModel(MainWindowViewModel MainVM)
         {
-            StartTime = start;
-            EndTime = end;
-            Data = new CreateDataBase(StartTime, EndTime);
+            this.MainVM = MainVM;
+            Data = new CreateDataBase(MainVM.StartDate.GetDateTime, MainVM.EndDate.GetDateTime);
             
             OpenSaveDialog = new RelayCommand(OnOpenSaveDialogAppCommandExecuted,
                 CanOpenSaveDialogAppCommandExecute);
@@ -29,24 +28,11 @@ namespace Calculation_of_penalties.ViewModel
             Exit = new RelayCommand(OnExitAppCommandExecuted,CanExitAppCommandExecute);
         }
 
+        public MainWindowViewModel MainVM { get; set; }
         public CreateDataBase Data { get; set; }
         private FileIOService fileio;
         private ExcelHelper excelHelper;
-        
-        private bool _setcopy;
-        public bool SetCopy
-        {
-            get => _setcopy;
-            set
-            {
-                _setcopy = value;
-                OnPropertyChanged("SetCopy");
-            }
-        }
 
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
-        
         public SaveFileDialog SaveFile { get; set; }
         public OpenFileDialog OpenFile { get; set; }
 

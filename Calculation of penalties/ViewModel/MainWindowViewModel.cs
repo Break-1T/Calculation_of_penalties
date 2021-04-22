@@ -75,7 +75,7 @@ namespace Calculation_of_penalties.ViewModel
         {
             DataView = new DataBase()
             {
-                DataContext = new DataBaseViewModel(_startDate.GetDateTime, _endDate.GetDateTime)
+                DataContext = new DataBaseViewModel(this)
             };
             DataView.Show();
             App.Current.MainWindow.Close();
@@ -103,7 +103,7 @@ namespace Calculation_of_penalties.ViewModel
             fileio = new FileIOService(OpenFile.FileName);
             DataView = new DataBase()
             {
-                DataContext = new DataBaseViewModel(_startDate.GetDateTime, _endDate.GetDateTime)
+                DataContext = new DataBaseViewModel(this)
             };
             ((DataBaseViewModel) DataView.DataContext).Data.SetDataCopy(fileio.LoadData());
             DataView.Show();
