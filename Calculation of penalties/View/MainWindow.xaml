@@ -6,38 +6,41 @@
         xmlns:local="clr-namespace:Calculation_of_penalties"
         xmlns:vm="clr-namespace:Calculation_of_penalties.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Розрахунок пені за аліменти" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.DataContext>
         <vm:MainWindowViewModel/>
     </Window.DataContext>
-    <DockPanel>
-        <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File" Cursor="Hand">
-                <MenuItem Header="Загрузить таблицу" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
-                <MenuItem Header="Закрыть" Command="{Binding Path=Exit}"/>
+    <DockPanel Background="#888d99">
+        <Menu DockPanel.Dock="Top" Background="#888d99" Foreground="WhiteSmoke">
+            <MenuItem Header="Файл" Cursor="Hand">
+                <MenuItem Header="Відкрити таблицю" Background="#717580" Foreground="WhiteSmoke" BorderBrush="#888d99" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
+                <MenuItem Header="Закрити" Cursor="Hand" Background="#717580" Foreground="WhiteSmoke" BorderBrush="#888d99" Command="{Binding Path=Exit}"/>
             </MenuItem>
-            <MenuItem Header="About" Cursor="Hand"/>
-            <MenuItem Header="Help" Cursor="Hand"/>
+            <MenuItem Header="Допомога" Cursor="Hand"/>
+            <MenuItem Header="Про розробника" Cursor="Hand"/>
         </Menu>
-        <Border BorderBrush="Black" BorderThickness="1" Margin="40" CornerRadius="20" Background="#d8e2e6">
+        <Border BorderBrush="Black" Margin="70 40 70 40" CornerRadius="20" Background="#d1d5e0">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="30"/>
+            </Border.Effect>
             <DockPanel>
-                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Розрахунок суми пені за несплачені аліменти" FontSize="15" Margin="10"/>
+                <TextBlock DockPanel.Dock="Top" HorizontalAlignment="Center" Text="Розрахунок суми пені за несплачені аліменти" FontSize="20" Margin="10" FontWeight="Medium"/>
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <WrapPanel Margin="0 10 0 0">
                         <TextBlock Text="Початок стягнення аліментів: " FontSize="15" Margin="0 0 18 0"/>
-                        <TextBox MinWidth="30" FontSize="15" Text="{Binding StartDate.Day,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBox MinWidth="30" FontSize="15" ToolTip="День" Text="{Binding StartDate.Day,UpdateSourceTrigger = PropertyChanged}"/>
                         <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="30" FontSize="15" Text="{Binding StartDate.Month,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBox MinWidth="30" FontSize="15" ToolTip="Місяць" Text="{Binding StartDate.Month,UpdateSourceTrigger = PropertyChanged}"/>
                         <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="50" FontSize="15" Margin="0 0 18 0" Text="{Binding StartDate.Year,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBox MinWidth="50" FontSize="15" ToolTip="Рік" Margin="0 0 18 0" Text="{Binding StartDate.Year,UpdateSourceTrigger = PropertyChanged}"/>
                     </WrapPanel>
                     <WrapPanel Margin="0 10 0 0">
                         <TextBlock Text="Кінець про стягнення аліментів: " FontSize="15"/>
-                        <TextBox MinWidth="30" FontSize="15" Text="{Binding EndDate.Day,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBox MinWidth="30" FontSize="15" ToolTip="День" Text="{Binding EndDate.Day,UpdateSourceTrigger = PropertyChanged}"/>
                         <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="30" FontSize="15" Text="{Binding EndDate.Month,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBox MinWidth="30" FontSize="15" ToolTip="Місяць" Text="{Binding EndDate.Month,UpdateSourceTrigger = PropertyChanged}"/>
                         <TextBlock Text="/" FontSize="15" Margin="5 0 5 0"/>
-                        <TextBox MinWidth="50" FontSize="15" Margin="0 0 18 0" Text="{Binding EndDate.Year,UpdateSourceTrigger = PropertyChanged}"/>
+                        <TextBox MinWidth="50" FontSize="15" ToolTip="Рік" Margin="0 0 18 0" Text="{Binding EndDate.Year,UpdateSourceTrigger = PropertyChanged}"/>
                     </WrapPanel>
                     <WrapPanel Margin="0 10 0 0">
                         <TextBlock Text="Сума про нараховані аліменти стала: " FontSize="15"/>
@@ -46,7 +49,7 @@
                     </WrapPanel>
                     <WrapPanel Margin="0 10 0 0" Visibility="{Binding Path=IsConstant, UpdateSourceTrigger=PropertyChanged}">
                         <TextBlock Text="Введіть суму нарахованих аліментів: " FontSize="15"/>
-                        <TextBox MinWidth="111" FontSize="15" Text="{Binding Path=AlimentTotal,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox MinWidth="111" FontSize="15" Text="{Binding Path=StringTotalAliment,UpdateSourceTrigger=PropertyChanged}"/>
                     </WrapPanel>
                     <Button MaxHeight="100" MaxWidth="100" Content="Розрахувати" Command="{Binding Path=OpenData}" Margin="0 50 0 0" Cursor="Hand"/>
                 </StackPanel>

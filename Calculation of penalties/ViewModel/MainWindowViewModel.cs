@@ -8,6 +8,7 @@ using System.Windows.Input;
 using Calculation_of_penalties.Infrastructure;
 using Calculation_of_penalties.Infrastructure.Commands;
 using Calculation_of_penalties.Models;
+using Calculation_of_penalties.Resources;
 using Calculation_of_penalties.Services;
 using Calculation_of_penalties.View;
 using Microsoft.Win32;
@@ -19,7 +20,7 @@ namespace Calculation_of_penalties.ViewModel
         public MainWindowViewModel()
         {
             IsConstant = "Hidden";
-            AlimentTotal = 0;
+            StringTotalAliment = "0";
             AmountIsConstant = new RelayCommand(OnAmountIsConstantAppCommandExecuted, CanAmountIsConstantAppCommandExecute);
             AmountIsNotConstant = new RelayCommand(OnAmountIsNotConstantAppCommandExecuted, CanAmountIsNotConstantAppCommandExecute);
             OpenData = new RelayCommand(OnOpenDataAppCommandExecuted, CanOpenDataAppCommandExecute);
@@ -35,14 +36,37 @@ namespace Calculation_of_penalties.ViewModel
         public OpenFileDialog OpenFile { get; private set; }
 
         //Сума аліментів, яку потрібно сплатити
-        private double _AlimentTotal;
-        public double AlimentTotal
+        private string _stringTotalAliment;
+
+        public string StringTotalAliment
         {
-            get => _AlimentTotal;
+            get => _stringTotalAliment;
             set
             {
-                _AlimentTotal = value;
-                OnPropertyChanged("AlimentTotal");
+                char[] mas = value.ToCharArray();
+                for (int i=0; i<mas.Length;i++)
+                {
+                    if (mas[i] == '.')
+                        mas[i] = ',';
+                }
+                _stringTotalAliment = new string(mas);
+                OnPropertyChanged("StringTotalAliment");
+            }
+        }
+        
+        public double AlimentTotal
+        {
+            get
+            {
+                try
+                {
+                    return Convert.ToDouble(StringTotalAliment);
+                }
+                catch 
+                {
+                    MessageBox.Show(MyResources.ConvertError);
+                    return 0;
+                }
             }
         }
 
@@ -155,7 +179,7 @@ namespace Calculation_of_penalties.ViewModel
         private void OnAmountIsConstantAppCommandExecuted(object p)
         {
             IsConstant = "Hidden";
-            AlimentTotal = 0;
+            StringTotalAliment = "0";
         }
         private bool CanAmountIsConstantAppCommandExecute(object p)
         {

@@ -25,8 +25,20 @@
                         <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date,StringFormat={}{0:Y},ConverterCulture=uk-UA}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість днів" Binding="{Binding Path=DaysInMonth}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість прострочених днів" Binding="{Binding Path= OverdueDays}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Нарахована сума аліментів " Binding="{Binding Path=AlimentTotal,UpdateSourceTrigger=PropertyChanged}"/>
-                        <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid,UpdateSourceTrigger=PropertyChanged}"/>
+                        <DataGridTextColumn Header="Нарахована сума аліментів" Binding="{Binding Path=AlimentTotal,UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Background" Value="#d3d8e3"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid,UpdateSourceTrigger=PropertyChanged}">
+                            <DataGridTextColumn.CellStyle>
+                                <Style TargetType="DataGridCell">
+                                    <Setter Property="Background" Value="#d3d8e3"/>
+                                </Style>
+                            </DataGridTextColumn.CellStyle>
+                        </DataGridTextColumn>
                         <DataGridTextColumn Header="Розрахунок проплати" Binding="{Binding Path=Overpayment,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Сума, на яку нараховується пеня" Binding="{Binding Path=PenaltyForSum,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Пеня,%" Binding="{Binding Path=PenaltyPersentage,UpdateSourceTrigger=PropertyChanged,StringFormat={}{0:P1}}" IsReadOnly="True"/>

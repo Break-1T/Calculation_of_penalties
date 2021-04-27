@@ -117,6 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ConvertError" xml:space="preserve">
+    <value>Ошибка конвертации данных</value>
+    <comment>Ошибка конвертации данных</comment>
+  </data>
   <data name="LoadErrorMessage" xml:space="preserve">
     <value>Произошла ошибка чтения данных</value>
     <comment>Строка в случае ошибки загрузки файла json</comment>

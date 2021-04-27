@@ -61,6 +61,15 @@ namespace Calculation_of_penalties.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Ошибка конвертации данных.
+        /// </summary>
+        internal static string ConvertError {
+            get {
+                return ResourceManager.GetString("ConvertError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Произошла ошибка чтения данных.
         /// </summary>
         internal static string LoadErrorMessage {
