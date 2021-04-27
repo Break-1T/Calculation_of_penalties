@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculation_of_penalties.View"
         xmlns:vm="clr-namespace:Calculation_of_penalties.ViewModel"
         mc:Ignorable="d"
-        Title="DataBase" Height="650" Width="1400" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="DataBase" Height="650" Width="1440" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File" Cursor="Hand">

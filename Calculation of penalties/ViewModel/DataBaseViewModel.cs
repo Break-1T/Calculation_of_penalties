@@ -17,7 +17,7 @@ namespace Calculation_of_penalties.ViewModel
         public DataBaseViewModel(MainWindowViewModel MainVM)
         {
             this.MainVM = MainVM;
-            Data = new CreateDataBase(MainVM.StartDate.GetDateTime, MainVM.EndDate.GetDateTime);
+            Data = new CreateDataBase(MainVM.StartDate.GetDateTime, MainVM.EndDate.GetDateTime,this.MainVM.AlimentTotal);
             
             OpenSaveDialog = new RelayCommand(OnOpenSaveDialogAppCommandExecuted,
                 CanOpenSaveDialogAppCommandExecute);

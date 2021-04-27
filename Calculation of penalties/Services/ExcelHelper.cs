@@ -57,7 +57,7 @@ namespace Calculation_of_penalties.Services
                         firstsheet.SetValue(j, k++, i.EachYearPenalty);
                         j++;
                     }
-
+                    
                     helper.Save();
                     new Thread(Show).Start(MyResources.SaveExcelMessage);
                     return true;

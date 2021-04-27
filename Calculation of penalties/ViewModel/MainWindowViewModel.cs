@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Text;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using Calculation_of_penalties.Infrastructure;
 using Calculation_of_penalties.Infrastructure.Commands;
 using Calculation_of_penalties.Models;
 using Calculation_of_penalties.Services;
@@ -16,7 +18,10 @@ namespace Calculation_of_penalties.ViewModel
     {
         public MainWindowViewModel()
         {
-            OpenCalendar = new RelayCommand(OnOpenCalendarAppCommandExecuted, CanOpenCalendarAppCommandExecute);
+            IsConstant = "Hidden";
+            AlimentTotal = 0;
+            AmountIsConstant = new RelayCommand(OnAmountIsConstantAppCommandExecuted, CanAmountIsConstantAppCommandExecute);
+            AmountIsNotConstant = new RelayCommand(OnAmountIsNotConstantAppCommandExecuted, CanAmountIsNotConstantAppCommandExecute);
             OpenData = new RelayCommand(OnOpenDataAppCommandExecuted, CanOpenDataAppCommandExecute);
             OpenLoadDialog = new RelayCommand(OnOpenLoadDialogAppCommandExecuted, CanOpenLoadDialogAppCommandExecute);
             Exit = new RelayCommand(OnExitAppCommandExecuted, CanExitAppCommandExecute);
@@ -24,15 +29,39 @@ namespace Calculation_of_penalties.ViewModel
             _startDate = new Date();
             _endDate = new Date();
         }
-
+        private FileIOService fileio;
+        
         public DataBase DataView { get; set; }
         public OpenFileDialog OpenFile { get; private set; }
+
+        //Сума аліментів, яку потрібно сплатити
+        private double _AlimentTotal;
+        public double AlimentTotal
+        {
+            get => _AlimentTotal;
+            set
+            {
+                _AlimentTotal = value;
+                OnPropertyChanged("AlimentTotal");
+            }
+        }
+
+        //Видимість поля для введення нарахованої суми аліментів
+        private string _IsConstant;
+        public string IsConstant
+        {
+            get => _IsConstant;
+            set
+            {
+                _IsConstant = value;
+                OnPropertyChanged("IsConstant");
+            }
+        }
 
         #region Ввод дат
 
         private Date _startDate;
         private Date _endDate;
-        private FileIOService fileio;
 
         public Date StartDate
         {
@@ -57,20 +86,20 @@ namespace Calculation_of_penalties.ViewModel
 
         #region Комманды
 
+        //Команди, що відповідають за відображення поля вводу сумми аліментів
+        public ICommand AmountIsConstant { get; }
+        public ICommand AmountIsNotConstant { get; }
+        
+        //Комманда, що відповідає за створення локальної бази даних
         public ICommand OpenData { get; }
-        public ICommand OpenCalendar { get; }
-        public ICommand OpenLoadDialog { get; }
-        public ICommand Exit { get; }
-        
-        private void OnOpenCalendarAppCommandExecuted(object p)
-        {
 
-        }
-        private bool CanOpenCalendarAppCommandExecute(object p)
-        {
-            return true;
-        }
-        
+        //Комманда, що відповідає за загрузку готових таблиць у форматі .json
+        public ICommand OpenLoadDialog { get; }
+
+        //Комманда, що відповідає за закриття програми
+        public ICommand Exit { get; }
+
+        //Методи, що відповідають за те, що роблять команди, та чи можуть вони виконуватися
         private void OnOpenDataAppCommandExecuted(object p)
         {
             DataView = new DataBase()
@@ -119,6 +148,25 @@ namespace Calculation_of_penalties.ViewModel
             Application.Current.MainWindow.Close();
         }
         private bool CanExitAppCommandExecute(object p)
+        {
+            return true;
+        }
+
+        private void OnAmountIsConstantAppCommandExecuted(object p)
+        {
+            IsConstant = "Hidden";
+            AlimentTotal = 0;
+        }
+        private bool CanAmountIsConstantAppCommandExecute(object p)
+        {
+            return true;
+        }
+        
+        private void OnAmountIsNotConstantAppCommandExecuted(object p)
+        {
+            IsConstant = "Visible";
+        }
+        private bool CanAmountIsNotConstantAppCommandExecute(object p)
         {
             return true;
         }

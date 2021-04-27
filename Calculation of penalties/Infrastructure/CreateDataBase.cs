@@ -14,10 +14,10 @@ namespace Calculation_of_penalties.Infrastructure
 {
     class CreateDataBase:INotifyPropertyChanged
     {
-        public CreateDataBase(DateTime Start,DateTime End)
+        public CreateDataBase(DateTime Start,DateTime End, double AlimentTotal)
         {
             cal = new GregorianCalendar();
-
+            this.AlimentTotal = AlimentTotal;
             this.Start = Start;
             this.End = End;
             
@@ -31,7 +31,9 @@ namespace Calculation_of_penalties.Infrastructure
         public DateTime End { get; set; }
         
         Calendar cal;
-        
+
+        public double AlimentTotal { get; }
+
         private int TotalDays;
 
         private ObservableCollection<PenaltyCalculation> _Penalty;
@@ -58,7 +60,7 @@ namespace Calculation_of_penalties.Infrastructure
                     Id = i,
                     Date = Start,
                     OverdueDays = TotalDays,
-                    AlimentTotal = 0,
+                    AlimentTotal = AlimentTotal,
                     AlimentPaid = 0,
                     PenaltyPersentage = 0.01
                 });
@@ -66,6 +68,7 @@ namespace Calculation_of_penalties.Infrastructure
                 Start = Start.AddMonths(1);
                 i++;
             }
+            this.Penalty[Penalty.Count-1].UpdatePropertys();
         }
 
         public ObservableCollection<Penalty> GetDataCopy()
@@ -119,7 +122,6 @@ namespace Calculation_of_penalties.Infrastructure
             }
 
             Penalty = penalties;
-            OnPropertyChanged("PenaltiesCalc");
         }
 
         private int GetDaysInPeriod()
@@ -140,11 +142,6 @@ namespace Calculation_of_penalties.Infrastructure
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public void Update()
-        {
-            OnPropertyChanged("PenaltiesCalc");
         }
     }
 }
