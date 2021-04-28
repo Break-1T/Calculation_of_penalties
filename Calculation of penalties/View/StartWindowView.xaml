@@ -1,4 +1,4 @@
-﻿<Window x:Class="Calculation_of_penalties.MainWindow"
+﻿<Window x:Class="Calculation_of_penalties.StartWindowView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Розрахунок пені за аліменти" Height="450" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.DataContext>
-        <vm:MainWindowViewModel/>
+        <vm:StartWindowViewModel/>
     </Window.DataContext>
     <DockPanel Background="#888d99">
         <Menu DockPanel.Dock="Top" Background="#888d99" Foreground="WhiteSmoke">
@@ -44,12 +44,12 @@
                     </WrapPanel>
                     <WrapPanel Margin="0 10 0 0">
                         <TextBlock Text="Сума про нараховані аліменти стала: " FontSize="15"/>
-                        <RadioButton Content="Так" VerticalAlignment="Bottom" IsChecked="True" Margin="0 0  10 0" Command="{Binding Path=AmountIsConstant,UpdateSourceTrigger=PropertyChanged}"/>
-                        <RadioButton Content="Ні" VerticalAlignment="Bottom" Command="{Binding Path=AmountIsNotConstant,UpdateSourceTrigger=PropertyChanged}"/>
+                        <RadioButton Content="Так" VerticalAlignment="Bottom" Margin="0 0  10 0" Command="{Binding Path=AmountIsConstant,UpdateSourceTrigger=PropertyChanged}"/>
+                        <RadioButton Content="Ні" VerticalAlignment="Bottom" IsChecked="True" Command="{Binding Path=AmountIsNotConstant,UpdateSourceTrigger=PropertyChanged}"/>
                     </WrapPanel>
                     <WrapPanel Margin="0 10 0 0" Visibility="{Binding Path=IsConstant, UpdateSourceTrigger=PropertyChanged}">
                         <TextBlock Text="Введіть суму нарахованих аліментів: " FontSize="15"/>
-                        <TextBox MinWidth="111" FontSize="15" Text="{Binding Path=StringTotalAliment,UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBox MinWidth="111" FontSize="15" Text="{Binding Path=AlimentTotal,UpdateSourceTrigger=LostFocus}"/>
                     </WrapPanel>
                     <Button MaxHeight="100" MaxWidth="100" Content="Розрахувати" Command="{Binding Path=OpenData}" Margin="0 50 0 0" Cursor="Hand"/>
                 </StackPanel>

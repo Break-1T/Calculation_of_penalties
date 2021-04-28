@@ -22,7 +22,7 @@ namespace Calculation_of_penalties.Infrastructure
             this.End = End;
             
             TotalDays = GetDaysInPeriod();
-            Penalty = new ObservableCollection<PenaltyCalculation>();
+            PenaltyCalculations = new ObservableCollection<PenaltyCalculation>();
             Penalties = new ObservableCollection<Penalty>();
             Create();
 
@@ -36,15 +36,15 @@ namespace Calculation_of_penalties.Infrastructure
 
         private int TotalDays;
 
-        private ObservableCollection<PenaltyCalculation> _Penalty;
+        private ObservableCollection<PenaltyCalculation> _penaltyCalculations;
 
-        public ObservableCollection<PenaltyCalculation> Penalty
+        public ObservableCollection<PenaltyCalculation> PenaltyCalculations
         {
-            get => _Penalty;
+            get => _penaltyCalculations;
             set
             {
-                _Penalty = value;
-                OnPropertyChanged("Penalty");
+                _penaltyCalculations = value;
+                OnPropertyChanged("PenaltyCalculations");
             }
         }
         public ObservableCollection<Penalty> Penalties { get; set; }
@@ -54,7 +54,7 @@ namespace Calculation_of_penalties.Infrastructure
             int i = 1;
             while (Start<=End)
             {
-                Penalty.Add(new PenaltyCalculation()
+                PenaltyCalculations.Add(new PenaltyCalculation()
                 {
                     Data = this,
                     Id = i,
@@ -68,13 +68,13 @@ namespace Calculation_of_penalties.Infrastructure
                 Start = Start.AddMonths(1);
                 i++;
             }
-            this.Penalty[Penalty.Count-1].UpdatePropertys();
+            this.PenaltyCalculations[PenaltyCalculations.Count-1].UpdatePropertys();
         }
 
         public ObservableCollection<Penalty> GetDataCopy()
         {
             ObservableCollection<Penalty> penalties = new ObservableCollection<Penalty>();
-            foreach (var j in Penalty)
+            foreach (var j in PenaltyCalculations)
             {
                 Penalty penalty = new Penalty()
                 {
@@ -121,7 +121,7 @@ namespace Calculation_of_penalties.Infrastructure
                 penalties.Add(penalty);
             }
 
-            Penalty = penalties;
+            PenaltyCalculations = penalties;
         }
 
         private int GetDaysInPeriod()

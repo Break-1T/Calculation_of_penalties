@@ -1,4 +1,4 @@
-﻿<Window x:Class="Calculation_of_penalties.View.DataBase"
+﻿<Window x:Class="Calculation_of_penalties.View.DataBaseView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Calculation_of_penalties.View"
         xmlns:vm="clr-namespace:Calculation_of_penalties.ViewModel"
         mc:Ignorable="d"
-        Title="DataBase" Height="650" Width="1440" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="DataBaseView" Height="650" Width="1440" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="File" Cursor="Hand">
@@ -18,21 +18,21 @@
         </Menu>
         <StackPanel>
             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <DataGrid ItemsSource="{Binding Data.Penalty, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto"
+                <DataGrid ItemsSource="{Binding Data.PenaltyCalculations, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" MaxHeight="610" Width="auto"
                            CanUserAddRows="False" CanUserDeleteRows="False">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="№ п/п" Binding="{Binding Path=Id, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Місяць/ рік" Binding="{Binding Path=Date,StringFormat={}{0:Y},ConverterCulture=uk-UA}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість днів" Binding="{Binding Path=DaysInMonth}" IsReadOnly="True"/>
                         <DataGridTextColumn Header="Кількість прострочених днів" Binding="{Binding Path= OverdueDays}" IsReadOnly="True"/>
-                        <DataGridTextColumn Header="Нарахована сума аліментів" Binding="{Binding Path=AlimentTotal,UpdateSourceTrigger=PropertyChanged}">
+                        <DataGridTextColumn Header="Нарахована сума аліментів" Binding="{Binding Path=AlimentTotal,UpdateSourceTrigger=LostFocus}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="Background" Value="#d3d8e3"/>
                                 </Style>
                             </DataGridTextColumn.CellStyle>
                         </DataGridTextColumn>
-                        <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid,UpdateSourceTrigger=PropertyChanged}">
+                        <DataGridTextColumn Header="Сплачена сума аліментів" Binding="{Binding Path=AlimentPaid,UpdateSourceTrigger=LostFocus}">
                             <DataGridTextColumn.CellStyle>
                                 <Style TargetType="DataGridCell">
                                     <Setter Property="Background" Value="#d3d8e3"/>

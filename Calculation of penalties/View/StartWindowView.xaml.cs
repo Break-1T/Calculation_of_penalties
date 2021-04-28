@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Calculation_of_penalties
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for StartWindowView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class StartWindowView : Window
     {
-        public MainWindow()
+        public StartWindowView()
         {
             InitializeComponent();
         }

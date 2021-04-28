@@ -14,11 +14,11 @@ using Calculation_of_penalties.ViewModel;
 namespace Calculation_of_penalties.View
 {
     /// <summary>
-    /// Логика взаимодействия для DataBase.xaml
+    /// Логика взаимодействия для DataBaseView.xaml
     /// </summary>
-    public partial class DataBase : Window
+    public partial class DataBaseView : Window
     {
-        public DataBase()
+        public DataBaseView()
         {
             InitializeComponent();
 

@@ -15,12 +15,13 @@ using Microsoft.Win32;
 
 namespace Calculation_of_penalties.ViewModel
 {
-    class MainWindowViewModel:Base.ViewModel
+    class StartWindowViewModel:Base.ViewModel
     {
-        public MainWindowViewModel()
+        public StartWindowViewModel()
         {
             IsConstant = "Hidden";
-            StringTotalAliment = "0";
+            AlimentTotal = 0;
+            
             AmountIsConstant = new RelayCommand(OnAmountIsConstantAppCommandExecuted, CanAmountIsConstantAppCommandExecute);
             AmountIsNotConstant = new RelayCommand(OnAmountIsNotConstantAppCommandExecuted, CanAmountIsNotConstantAppCommandExecute);
             OpenData = new RelayCommand(OnOpenDataAppCommandExecuted, CanOpenDataAppCommandExecute);
@@ -32,41 +33,18 @@ namespace Calculation_of_penalties.ViewModel
         }
         private FileIOService fileio;
         
-        public DataBase DataView { get; set; }
+        public DataBaseView DataView { get; set; }
         public OpenFileDialog OpenFile { get; private set; }
 
         //Сума аліментів, яку потрібно сплатити
-        private string _stringTotalAliment;
-
-        public string StringTotalAliment
-        {
-            get => _stringTotalAliment;
-            set
-            {
-                char[] mas = value.ToCharArray();
-                for (int i=0; i<mas.Length;i++)
-                {
-                    if (mas[i] == '.')
-                        mas[i] = ',';
-                }
-                _stringTotalAliment = new string(mas);
-                OnPropertyChanged("StringTotalAliment");
-            }
-        }
-        
+        private double _AlimentTotal;
         public double AlimentTotal
         {
-            get
+            get => _AlimentTotal;
+            set
             {
-                try
-                {
-                    return Convert.ToDouble(StringTotalAliment);
-                }
-                catch 
-                {
-                    MessageBox.Show(MyResources.ConvertError);
-                    return 0;
-                }
+                _AlimentTotal = value;
+                OnPropertyChanged("AlimentTotal");
             }
         }
 
@@ -126,7 +104,7 @@ namespace Calculation_of_penalties.ViewModel
         //Методи, що відповідають за те, що роблять команди, та чи можуть вони виконуватися
         private void OnOpenDataAppCommandExecuted(object p)
         {
-            DataView = new DataBase()
+            DataView = new DataBaseView()
             {
                 DataContext = new DataBaseViewModel(this)
             };
@@ -154,7 +132,7 @@ namespace Calculation_of_penalties.ViewModel
             OpenFile = new OpenFileDialog();
             OpenFile.ShowDialog();
             fileio = new FileIOService(OpenFile.FileName);
-            DataView = new DataBase()
+            DataView = new DataBaseView()
             {
                 DataContext = new DataBaseViewModel(this)
             };
@@ -178,8 +156,8 @@ namespace Calculation_of_penalties.ViewModel
 
         private void OnAmountIsConstantAppCommandExecuted(object p)
         {
-            IsConstant = "Hidden";
-            StringTotalAliment = "0";
+            IsConstant = "Visible";
+            AlimentTotal = 0;
         }
         private bool CanAmountIsConstantAppCommandExecute(object p)
         {
@@ -188,7 +166,7 @@ namespace Calculation_of_penalties.ViewModel
         
         private void OnAmountIsNotConstantAppCommandExecuted(object p)
         {
-            IsConstant = "Visible";
+            IsConstant = "Hidden";
         }
         private bool CanAmountIsNotConstantAppCommandExecute(object p)
         {

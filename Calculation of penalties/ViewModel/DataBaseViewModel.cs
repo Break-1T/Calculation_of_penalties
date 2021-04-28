@@ -14,7 +14,7 @@ namespace Calculation_of_penalties.ViewModel
     class DataBaseViewModel : Base.ViewModel
     {
 
-        public DataBaseViewModel(MainWindowViewModel MainVM)
+        public DataBaseViewModel(StartWindowViewModel MainVM)
         {
             this.MainVM = MainVM;
             Data = new CreateDataBase(MainVM.StartDate.GetDateTime, MainVM.EndDate.GetDateTime,this.MainVM.AlimentTotal);
@@ -28,7 +28,7 @@ namespace Calculation_of_penalties.ViewModel
             Exit = new RelayCommand(OnExitAppCommandExecuted,CanExitAppCommandExecute);
         }
 
-        public MainWindowViewModel MainVM { get; set; }
+        public StartWindowViewModel MainVM { get; set; }
         public CreateDataBase Data { get; set; }
         private FileIOService fileio;
         private ExcelHelper excelHelper;

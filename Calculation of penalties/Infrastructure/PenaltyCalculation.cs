@@ -86,7 +86,7 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 _AlimentTotal = value;
                 OnPropertyChanged("AlimentTotal");
-                foreach (var i in Data.Penalty)
+                foreach (var i in Data.PenaltyCalculations)
                     i.UpdatePropertys();
             }
         }
@@ -99,7 +99,7 @@ namespace Calculation_of_penalties.Infrastructure
             {
                 _AlimentPaid = value;
                 OnPropertyChanged("AlimentPaid");
-                foreach (var i in Data.Penalty)
+                foreach (var i in Data.PenaltyCalculations)
                     i.UpdatePropertys();
             }
         }
@@ -197,7 +197,7 @@ namespace Calculation_of_penalties.Infrastructure
         private void SetEachYearPenalty()
         {
             double result = 0;
-            foreach (var i in Data.Penalty)
+            foreach (var i in Data.PenaltyCalculations)
             {
                 result += i.EachDayPenalty;
                 if (i.Date == Date)
@@ -215,26 +215,28 @@ namespace Calculation_of_penalties.Infrastructure
                 PenaltyForSum = 0;
             else
                 PenaltyForSum = Overpayment;
+            
+            PenaltyForSum = Math.Round(PenaltyForSum, 2, MidpointRounding.ToEven);
         }
         private void SetOverpayment()
         {
-            if (Data.Penalty.Count == 0)
+            if (Data.PenaltyCalculations.Count == 0)
             {
                 Overpayment = AlimentTotal - AlimentPaid;
 
             }
             else
             {
-                if (Data.Penalty[0].Date == this.Date)
+                if (Data.PenaltyCalculations[0].Date == this.Date)
                 {
                     Overpayment = AlimentTotal - AlimentPaid;
                     return;
                 }
                 else
                 {
-                    if (Data.Penalty[GetNumInArray() - 1].Overpayment < 0)
+                    if (Data.PenaltyCalculations[GetNumInArray() - 1].Overpayment < 0)
                     {
-                        Overpayment = AlimentTotal - AlimentPaid + Data.Penalty[GetNumInArray() - 1].Overpayment;
+                        Overpayment = AlimentTotal - AlimentPaid + Data.PenaltyCalculations[GetNumInArray() - 1].Overpayment;
                     }
                     else
                     {
@@ -242,14 +244,15 @@ namespace Calculation_of_penalties.Infrastructure
                     }
                 }
             }
+            Overpayment = Math.Round(Overpayment, 2, MidpointRounding.ToEven);
         }
 
         private int GetNumInArray()
         {
             int i;
-            for (i = 0; i < Data.Penalty.Count; i++)
+            for (i = 0; i < Data.PenaltyCalculations.Count; i++)
             {
-                if (Data.Penalty[i].Date == this.Date)
+                if (Data.PenaltyCalculations[i].Date == this.Date)
                     break;
             }
             return i;
