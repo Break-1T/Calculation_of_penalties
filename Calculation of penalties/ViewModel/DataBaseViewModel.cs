@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
-using System.Windows.Input;
+﻿
 using Calculation_of_penalties.Infrastructure;
 using Calculation_of_penalties.Infrastructure.Commands;
-using Calculation_of_penalties.Models;
+using Calculation_of_penalties.Infrastructure.Commands.Base;
 using Calculation_of_penalties.Services;
 using Microsoft.Win32;
 
@@ -38,10 +34,10 @@ namespace Calculation_of_penalties.ViewModel
 
         #region Комманды
 
-        public ICommand OpenSaveDialog { get;}
-        public ICommand OpenLoadDialog { get; }
-        public ICommand OpenExportDialog { get; }
-        public ICommand Exit { get; }
+        public Command OpenSaveDialog { get;}
+        public Command OpenLoadDialog { get; }
+        public Command OpenExportDialog { get; }
+        public Command Exit { get; }
 
 
         private void OnOpenSaveDialogAppCommandExecuted(object p)

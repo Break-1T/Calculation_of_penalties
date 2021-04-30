@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using Calculation_of_penalties.Annotations;
+using Calculation_of_penalties.Resources;
 
 namespace Calculation_of_penalties.Models
 {
@@ -13,7 +14,6 @@ namespace Calculation_of_penalties.Models
         public string Day { get; set; }
         public string Month { get; set; }
         public string Year { get; set; }
-
         public DateTime GetDateTime
         {
             get
@@ -25,14 +25,12 @@ namespace Calculation_of_penalties.Models
                 }
                 catch(Exception ex)
                 {
-                    MessageBox.Show($"Проверьте правильность введённых данных\n{ex.Message}");
+                    MessageBox.Show($"{MyResources.ConvertError}\n{ex.Message}");
                     return new DateTime();
                 }
             }
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

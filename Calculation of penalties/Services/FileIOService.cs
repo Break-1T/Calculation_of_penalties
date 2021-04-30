@@ -19,9 +19,8 @@ namespace Calculation_of_penalties.Services
         {
             this._path = path;
         }
-
         private readonly string _path;
-
+        
         public ObservableCollection<Penalty> LoadData()
         {
             try
@@ -48,7 +47,7 @@ namespace Calculation_of_penalties.Services
                 return new ObservableCollection<Penalty>();
             }
         }
-
+        
         public void SaveData(ObservableCollection<Penalty> myList)
         {
             try
@@ -66,6 +65,7 @@ namespace Calculation_of_penalties.Services
                 new Thread(Show).Start(MyResources.SaveErrorMessage);
             }
         }
+        
         private void Show(object x)
         {
             MessageBox.Show((string)x);

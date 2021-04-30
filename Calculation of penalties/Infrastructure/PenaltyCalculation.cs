@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 using Calculation_of_penalties.Annotations;
 
 namespace Calculation_of_penalties.Infrastructure
@@ -16,6 +12,9 @@ namespace Calculation_of_penalties.Infrastructure
         {
             calendar = new GregorianCalendar();
         }
+
+        #region Fields
+        
         private Calendar calendar;
 
         private int id;
@@ -30,6 +29,10 @@ namespace Calculation_of_penalties.Infrastructure
         private double penaltyvalue;
         private double eachdaypenalty;
         private double eachyearpenalty;
+
+        #endregion
+
+        #region Properties
 
         //№ п/п
         public int Id
@@ -181,6 +184,9 @@ namespace Calculation_of_penalties.Infrastructure
 
         public CreateDataBase Data { get; set; }
 
+        #endregion
+
+        //Метод для оновлення значень властивостей
         public void UpdatePropertys()
         {
            SetOverpayment();
@@ -190,12 +196,18 @@ namespace Calculation_of_penalties.Infrastructure
            SetEachYearPenalty();
         }
 
+        //Методи для розрахунку значень властивостей
         private void SetEachdayPenalty()
         {
+            //Значення властивості EachDayPenalty є добутком кількості прострочених днів на грошове значення пені
+            //Для більш корректного виду значення округляється до 2-х останніх знаків після коми
             EachDayPenalty = Math.Round(OverdueDays * PenaltyValue, 2, MidpointRounding.ToEven);
         }
         private void SetEachYearPenalty()
         {
+            //Значення властивості EachYearPenalty є суммою властивостей суми пені за просрочені дні в загальній коллекції,
+            //починаючи від початку стяглення аліментів і до поточної дати
+            //Для більш корректного виду значення округляється до 2-х останніх знаків після коми
             double result = 0;
             foreach (var i in Data.PenaltyCalculations)
             {
@@ -207,6 +219,8 @@ namespace Calculation_of_penalties.Infrastructure
         }
         private void SetPenaltyValue()
         {
+            //Значення властивості PenaltyValue є добутком суми на яку нараховується пеня на відсоток пені.
+            //Для більш корректного виду значення округляється до 2-х останніх знаків після коми
             PenaltyValue = Math.Round(PenaltyForSum * PenaltyPersentage, 2, MidpointRounding.ToEven);
         }
         private void SetPenaltyForSum()
@@ -220,10 +234,14 @@ namespace Calculation_of_penalties.Infrastructure
         }
         private void SetOverpayment()
         {
+            //Значення властивості Overpayment є переплатою, яка йде на наступні місяці.
+            //Якщо сума сплачених аліментів більше ніж сума нарахованих, то в наступному місяці
+            //платник сплатить суму, яка менша від нарахованих  аліментів.
+            //Для більш корректного виду значення округляється до 2-х останніх знаків після коми
+
             if (Data.PenaltyCalculations.Count == 0)
             {
                 Overpayment = AlimentTotal - AlimentPaid;
-
             }
             else
             {
@@ -247,6 +265,7 @@ namespace Calculation_of_penalties.Infrastructure
             Overpayment = Math.Round(Overpayment, 2, MidpointRounding.ToEven);
         }
 
+        //Метод для виявлення індекса об'єкта в коллекції
         private int GetNumInArray()
         {
             int i;

@@ -4,9 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using Calculation_of_penalties.Annotations;
 using Calculation_of_penalties.Models;
 
@@ -29,15 +27,13 @@ namespace Calculation_of_penalties.Infrastructure
         }
         public DateTime Start { get; set; }
         public DateTime End { get; set; }
-        
-        Calendar cal;
 
         public double AlimentTotal { get; }
 
         private int TotalDays;
+        Calendar cal;
 
         private ObservableCollection<PenaltyCalculation> _penaltyCalculations;
-
         public ObservableCollection<PenaltyCalculation> PenaltyCalculations
         {
             get => _penaltyCalculations;
@@ -47,8 +43,10 @@ namespace Calculation_of_penalties.Infrastructure
                 OnPropertyChanged("PenaltyCalculations");
             }
         }
+        
         public ObservableCollection<Penalty> Penalties { get; set; }
 
+        //Метод для заповнення колекції з об'єктами PenaltyCalculation
         public void Create()
         {
             int i = 1;
@@ -68,9 +66,9 @@ namespace Calculation_of_penalties.Infrastructure
                 Start = Start.AddMonths(1);
                 i++;
             }
-            this.PenaltyCalculations[PenaltyCalculations.Count-1].UpdatePropertys();
+            this.PenaltyCalculations[this.PenaltyCalculations.Count-1].UpdatePropertys();
         }
-
+        //Метод для отримання копії колекції PenaltyCalculations з об'єктом Penalty, замість PenaltyCalculation
         public ObservableCollection<Penalty> GetDataCopy()
         {
             ObservableCollection<Penalty> penalties = new ObservableCollection<Penalty>();
@@ -96,7 +94,7 @@ namespace Calculation_of_penalties.Infrastructure
 
             return penalties;
         }
-
+        //Метод для отримання та встановлення копії колекції Penalty з об'єктом PenaltyCalculations, замість PenaltyCalculation
         public void SetDataCopy(ObservableCollection<Penalty> list)
         {
             ObservableCollection<PenaltyCalculation> penalties = new ObservableCollection<PenaltyCalculation>();
@@ -123,7 +121,7 @@ namespace Calculation_of_penalties.Infrastructure
 
             PenaltyCalculations = penalties;
         }
-
+        //Метод для отримання кількості днів в місяці
         private int GetDaysInPeriod()
         {
             DateTime starttime = new DateTime(Start.Year, Start.Month, Start.Day);
@@ -135,9 +133,7 @@ namespace Calculation_of_penalties.Infrastructure
             }
             return days;
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
-
         [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

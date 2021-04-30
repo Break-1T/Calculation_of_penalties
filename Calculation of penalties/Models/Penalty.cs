@@ -34,7 +34,6 @@ namespace Calculation_of_penalties.Models
         //Розрахунок проплати
         public double Overpayment { get; set; }
 
-
         //Сума, на яку нараховується пеня
         public double PenaltyForSum { get; set; }
 

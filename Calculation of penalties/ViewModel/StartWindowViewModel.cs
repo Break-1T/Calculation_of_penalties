@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using Calculation_of_penalties.Infrastructure;
+﻿using System.Windows;
 using Calculation_of_penalties.Infrastructure.Commands;
+using Calculation_of_penalties.Infrastructure.Commands.Base;
 using Calculation_of_penalties.Models;
-using Calculation_of_penalties.Resources;
 using Calculation_of_penalties.Services;
 using Calculation_of_penalties.View;
 using Microsoft.Win32;
@@ -89,17 +82,17 @@ namespace Calculation_of_penalties.ViewModel
         #region Комманды
 
         //Команди, що відповідають за відображення поля вводу сумми аліментів
-        public ICommand AmountIsConstant { get; }
-        public ICommand AmountIsNotConstant { get; }
+        public Command AmountIsConstant { get; }
+        public Command AmountIsNotConstant { get; }
         
         //Комманда, що відповідає за створення локальної бази даних
-        public ICommand OpenData { get; }
+        public Command OpenData { get; }
 
         //Комманда, що відповідає за загрузку готових таблиць у форматі .json
-        public ICommand OpenLoadDialog { get; }
+        public Command OpenLoadDialog { get; }
 
         //Комманда, що відповідає за закриття програми
-        public ICommand Exit { get; }
+        public Command Exit { get; }
 
         //Методи, що відповідають за те, що роблять команди, та чи можуть вони виконуватися
         private void OnOpenDataAppCommandExecuted(object p)
