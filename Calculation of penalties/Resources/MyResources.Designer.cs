@@ -70,6 +70,15 @@ namespace Calculation_of_penalties.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на .
+        /// </summary>
+        internal static string IntroText {
+            get {
+                return ResourceManager.GetString("IntroText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Произошла ошибка чтения данных.
         /// </summary>
         internal static string LoadErrorMessage {

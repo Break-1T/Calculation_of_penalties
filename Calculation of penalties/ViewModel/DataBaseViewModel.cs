@@ -1,4 +1,4 @@
-﻿
+﻿using System.Windows;
 using Calculation_of_penalties.Infrastructure;
 using Calculation_of_penalties.Infrastructure.Commands;
 using Calculation_of_penalties.Infrastructure.Commands.Base;
@@ -22,6 +22,7 @@ namespace Calculation_of_penalties.ViewModel
             OpenExportDialog =
                 new RelayCommand(OnOpenExportDialogAppCommandExecuted, CanOpenExportDialogAppCommandExecute);
             Exit = new RelayCommand(OnExitAppCommandExecuted,CanExitAppCommandExecute);
+            Help = new RelayCommand(OnhelpAppCommandExecuted, CanhelpAppCommandExecute);
         }
 
         public StartWindowViewModel MainVM { get; set; }
@@ -32,14 +33,24 @@ namespace Calculation_of_penalties.ViewModel
         public SaveFileDialog SaveFile { get; set; }
         public OpenFileDialog OpenFile { get; set; }
 
-        #region Комманды
-
+        #region Команди
+        
+        //Комманда, що відповідає за збереження поточних даних у формат .json
         public Command OpenSaveDialog { get;}
+        
+        //Комманда, що відповідає за загрузку готових таблиць у форматі .json
         public Command OpenLoadDialog { get; }
+
+        //Комманда, що відповідає за збереження поточних даних у файл Excel
         public Command OpenExportDialog { get; }
+        
+        //Комманда, що відповідає за закриття вікна
         public Command Exit { get; }
 
+        //Комманда, що відповідає за відкриття віконця, про допомогу
+        public Command Help { get; }
 
+        //Методи, що відповідають за те, що роблять команди, та чи можуть вони виконуватися
         private void OnOpenSaveDialogAppCommandExecuted(object p)
         {
             SaveFile = new SaveFileDialog();
@@ -85,6 +96,17 @@ namespace Calculation_of_penalties.ViewModel
             return true;
         }
 
+        private void OnhelpAppCommandExecuted(object p)
+        {
+            MessageBox.Show("1. Для розрахунку пені спочатку введіть суму нарахованих та сплачених аліментів. Після введення натисніть 'Enter'\n" +
+                            "2. Щоб зберегти поточний: файл натисніть 'Файл'-'Зберегти' та вкажіть місце і назву файлу\n" +
+                            "3. Щоб відкрити файл: натисніть 'Файл'-'Відкрити' та виберіть місце і сам файлу\n" +
+                            "4. Щоб зберегти поточні дані в файл Excel: натисніть 'Файл'-'Зберегти в Excel' та та вкажіть місце і назву файлу");
+        }
+        private bool CanhelpAppCommandExecute(object p)
+        {
+            return true;
+        }
 
         #endregion
     }

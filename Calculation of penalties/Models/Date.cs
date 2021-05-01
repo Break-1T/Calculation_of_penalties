@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Windows;
 using Calculation_of_penalties.Annotations;
-using Calculation_of_penalties.Resources;
 
 namespace Calculation_of_penalties.Models
 {
@@ -16,19 +12,7 @@ namespace Calculation_of_penalties.Models
         public string Year { get; set; }
         public DateTime GetDateTime
         {
-            get
-            {
-                try
-                {
-                    return new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), Convert.ToInt32(Day));
-
-                }
-                catch(Exception ex)
-                {
-                    MessageBox.Show($"{MyResources.ConvertError}\n{ex.Message}");
-                    return new DateTime();
-                }
-            }
+            get => new DateTime(Convert.ToInt32(Year), Convert.ToInt32(Month), Convert.ToInt32(Day));
         }
         public event PropertyChangedEventHandler PropertyChanged;
         [NotifyPropertyChangedInvocator]

@@ -121,6 +121,9 @@
     <value>Ошибка конвертации данных</value>
     <comment>Ошибка конвертации данных</comment>
   </data>
+  <data name="IntroText" xml:space="preserve">
+    <value />
+  </data>
   <data name="LoadErrorMessage" xml:space="preserve">
     <value>Произошла ошибка чтения данных</value>
     <comment>Строка в случае ошибки загрузки файла json</comment>

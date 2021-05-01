@@ -16,8 +16,8 @@
                 <MenuItem Header="Відкрити таблицю" Background="#717580" Foreground="WhiteSmoke" BorderBrush="#888d99" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
                 <MenuItem Header="Закрити" Cursor="Hand" Background="#717580" Foreground="WhiteSmoke" BorderBrush="#888d99" Command="{Binding Path=Exit}"/>
             </MenuItem>
-            <MenuItem Header="Допомога" Cursor="Hand"/>
-            <MenuItem Header="Про розробника" Cursor="Hand"/>
+            <MenuItem Header="Допомога" Cursor="Hand" Command="{Binding Path=Help}"/>
+            <MenuItem Header="Про розробника" Cursor="Hand" Command="{Binding Path=About}"/>
         </Menu>
         <Border BorderBrush="Black" Margin="70 40 70 40" CornerRadius="20" Background="#d1d5e0">
             <Border.Effect>
@@ -49,7 +49,7 @@
                     </WrapPanel>
                     <WrapPanel Margin="0 10 0 0" Visibility="{Binding Path=IsConstant, UpdateSourceTrigger=PropertyChanged}">
                         <TextBlock Text="Введіть суму нарахованих аліментів: " FontSize="15"/>
-                        <TextBox MinWidth="111" FontSize="15" Text="{Binding Path=AlimentTotal,UpdateSourceTrigger=LostFocus}"/>
+                        <TextBox MinWidth="111" FontSize="15" Text="{Binding Path=SAlimentTotal,UpdateSourceTrigger=LostFocus}"/>
                     </WrapPanel>
                     <Button MaxHeight="100" MaxWidth="100" Content="Розрахувати" Command="{Binding Path=OpenData}" Margin="0 50 0 0" Cursor="Hand"/>
                 </StackPanel>

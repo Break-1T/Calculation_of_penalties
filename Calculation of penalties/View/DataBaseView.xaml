@@ -9,12 +9,14 @@
         Title="DataBaseView" Height="650" Width="1440" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File" Cursor="Hand">
-                <MenuItem Header="Сохранить" Command="{Binding Path=OpenSaveDialog}" Cursor="Hand"/>
-                <MenuItem Header="Открыть" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
-                <MenuItem Header="Export to Excel" Cursor="Hand" Command="{Binding Path=OpenExportDialog}"/>
-                <MenuItem Header="Закрыть" Command="{Binding Exit}" Cursor="Hand"/>
+            <MenuItem Header="Файл" Cursor="Hand">
+                <MenuItem Header="Зберегти" Command="{Binding Path=OpenSaveDialog}" Cursor="Hand"/>
+                <MenuItem Header="Відкрити" Command="{Binding Path=OpenLoadDialog}" Cursor="Hand"/>
+                <MenuItem Header="Зберегти в Excel" Cursor="Hand" Command="{Binding Path=OpenExportDialog}"/>
+                <MenuItem Header="Закрити" Command="{Binding Exit}" Cursor="Hand"/>
             </MenuItem>
+            <MenuItem Header="Допомога" Cursor="Hand" Command="{Binding Path=Help}"/>
+            <MenuItem Header="Про розробника" Command="{Binding Path=MainVM.About}" Cursor="Hand"/>
         </Menu>
         <StackPanel>
             <ScrollViewer CanContentScroll="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
