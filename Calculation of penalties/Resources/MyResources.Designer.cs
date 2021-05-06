@@ -92,6 +92,15 @@ namespace Calculation_of_penalties.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Початкова дата не може бути більше концевої дати.
+        /// </summary>
+        internal static string DateInputError {
+            get {
+                return ResourceManager.GetString("DateInputError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на .
         /// </summary>
         internal static string IntroText {

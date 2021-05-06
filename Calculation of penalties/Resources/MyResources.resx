@@ -131,6 +131,9 @@
 3. Щоб відкрити файл: натисніть 'Файл'-'Відкрити' та виберіть місце і сам файлу
 4. Щоб зберегти поточні дані в файл Excel: натисніть 'Файл'-'Зберегти в Excel' та та вкажіть місце і назву файлу</value>
   </data>
+  <data name="DateInputError" xml:space="preserve">
+    <value>Початкова дата не може бути більше концевої дати</value>
+  </data>
   <data name="IntroText" xml:space="preserve">
     <value />
   </data>

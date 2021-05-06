@@ -115,7 +115,8 @@ namespace Calculation_of_penalties.ViewModel
         {
             try
             {
-                double result = Convert.ToDouble(AlimentTotal.ToString());
+                if (StartDate.GetDateTime > EndDate.GetDateTime)
+                    throw new Exception(MyResources.DateInputError);
                 DataView = new DataBaseView()
                 {
                     DataContext = new DataBaseViewModel(this)
