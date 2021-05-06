@@ -117,50 +117,52 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutMessage" xml:space="preserve">
-    <value>Розробник програмного забезпечення: студент КНТЕУ 2-6 ФІТ Крупко Тарас Сергійович
-Науковий керівник: Бебешко Богдан Тарасович"</value>
+  <data name="AlimentPaid" xml:space="preserve">
+    <value>Сплачена сума аліментів</value>
+    <comment>Сплачена сума аліментів</comment>
   </data>
-  <data name="ConvertError" xml:space="preserve">
-    <value>Ошибка конвертации данных</value>
-    <comment>Ошибка конвертации данных</comment>
+  <data name="AlimentTotal" xml:space="preserve">
+    <value>Нарахована сума аліментів</value>
+    <comment>Нарахована сума аліментів</comment>
   </data>
-  <data name="DataBaseWindowHelp" xml:space="preserve">
-    <value>1. Для розрахунку пені спочатку введіть суму нарахованих та сплачених аліментів. Після введення натисніть 'Enter'
-2. Щоб зберегти поточний: файл натисніть 'Файл'-'Зберегти' та вкажіть місце і назву файлу
-3. Щоб відкрити файл: натисніть 'Файл'-'Відкрити' та виберіть місце і сам файлу
-4. Щоб зберегти поточні дані в файл Excel: натисніть 'Файл'-'Зберегти в Excel' та та вкажіть місце і назву файлу</value>
+  <data name="Date" xml:space="preserve">
+    <value>Місяць/ рік</value>
+    <comment>Місяць/ рік</comment>
   </data>
-  <data name="IntroText" xml:space="preserve">
-    <value />
+  <data name="DaysInMonth" xml:space="preserve">
+    <value>Кількість днів</value>
+    <comment>Кількість днів</comment>
   </data>
-  <data name="LoadErrorMessage" xml:space="preserve">
-    <value>Произошла ошибка чтения данных</value>
-    <comment>Строка в случае ошибки загрузки файла json</comment>
+  <data name="EachDayPenalty" xml:space="preserve">
+    <value>Сума пені за прострочені дні, грн.</value>
+    <comment>Сума пені за прострочені дні, грн.</comment>
   </data>
-  <data name="LoadMessage" xml:space="preserve">
-    <value>Данные успешно загружены</value>
-    <comment>Строка в случае успешной загрузки файла json</comment>
+  <data name="EachYearPenalty" xml:space="preserve">
+    <value>Загальна сума</value>
+    <comment>Загальна сума</comment>
   </data>
-  <data name="SaveErrorMessage" xml:space="preserve">
-    <value>Произошла ошибка записи</value>
-    <comment>Строка в случае ошибки записи в json</comment>
+  <data name="Id" xml:space="preserve">
+    <value>№ п/п</value>
+    <comment>№ п/п</comment>
   </data>
-  <data name="SaveExcelErrorMessage" xml:space="preserve">
-    <value>Произошла ошибка записи</value>
-    <comment>Строка в случае ошибки записи в Excel</comment>
+  <data name="OverdueDays" xml:space="preserve">
+    <value>Кількість прострочених днів</value>
+    <comment>Кількість прострочених днів</comment>
   </data>
-  <data name="SaveExcelMessage" xml:space="preserve">
-    <value>Данные успешно записаны</value>
-    <comment>Строка в случае успешного сохранения в Excel</comment>
+  <data name="Overpayment" xml:space="preserve">
+    <value>Розрахунок проплати</value>
+    <comment>Розрахунок проплати</comment>
   </data>
-  <data name="SaveMessage" xml:space="preserve">
-    <value>Данные успешно записаны</value>
-    <comment>Строка в случае успешного сохранения в json</comment>
+  <data name="PenaltyForSum" xml:space="preserve">
+    <value>Сума, на яку нараховується пеня</value>
+    <comment>Сума, на яку нараховується пеня</comment>
   </data>
-  <data name="StartWindowHelp" xml:space="preserve">
-    <value>1. Для розрахунку пені спочатку введіть дані початку та кінця стягнення аліментів
-2. У випадку, якщо сума про нараховані аліменти стала - натисніть 'Так', та введіть суму
-3. Після введеня даних натисніть кнопку 'Розрахувати'</value>
+  <data name="PenaltyPersentage" xml:space="preserve">
+    <value>Пеня,%</value>
+    <comment>Пеня,%</comment>
+  </data>
+  <data name="PenaltyValue" xml:space="preserve">
+    <value>Пеня,грн.</value>
+    <comment>Пеня,грн.</comment>
   </data>
 </root>

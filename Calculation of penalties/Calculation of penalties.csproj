@@ -13,6 +13,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\ExcelResuouces.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ExcelResuouces.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\MyResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -21,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\ExcelResuouces.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExcelResuouces.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\MyResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>MyResources.Designer.cs</LastGenOutput>

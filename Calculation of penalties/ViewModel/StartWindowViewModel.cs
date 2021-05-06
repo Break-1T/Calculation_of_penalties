@@ -23,7 +23,7 @@ namespace Calculation_of_penalties.ViewModel
             OpenData = new RelayCommand(OnOpenDataAppCommandExecuted, CanOpenDataAppCommandExecute);
             OpenLoadDialog = new RelayCommand(OnOpenLoadDialogAppCommandExecuted, CanOpenLoadDialogAppCommandExecute);
             Exit = new RelayCommand(OnExitAppCommandExecuted, CanExitAppCommandExecute);
-            Help = new RelayCommand(OnhelpAppCommandExecuted, CanhelpAppCommandExecute);
+            Help = new RelayCommand(OnHelpAppCommandExecuted, CanHelpAppCommandExecute);
             About = new RelayCommand(OnAboutAppCommandExecuted, CanAboutAppCommandExecute);
             
             _startDate = new Date();
@@ -121,7 +121,7 @@ namespace Calculation_of_penalties.ViewModel
                     DataContext = new DataBaseViewModel(this)
                 };
                 DataView.Show();
-                App.Current.MainWindow.Close();
+                App.Current.MainWindow.Hide();
             }
             catch (Exception ex)
             {
@@ -157,7 +157,7 @@ namespace Calculation_of_penalties.ViewModel
             };
             ((DataBaseViewModel) DataView.DataContext).Data.SetDataCopy(fileio.LoadData());
             DataView.Show();
-            App.Current.MainWindow.Close();
+            App.Current.MainWindow.Hide();
         }
         private bool CanOpenLoadDialogAppCommandExecute(object p)
         {
@@ -192,21 +192,18 @@ namespace Calculation_of_penalties.ViewModel
             return true;
         }
 
-        private void OnhelpAppCommandExecuted(object p)
+        private void OnHelpAppCommandExecuted(object p)
         {
-            MessageBox.Show("1. Для розрахунку пені спочатку введіть дані початку та кінця стягнення аліментів\n"+
-                            "2. У випадку, якщо сума про нараховані аліменти стала - натисніть 'Так', та введіть суму\n" +
-                            "3. Після введеня даних натисніть кнопку 'Розрахувати'");
+            MessageBox.Show(MyResources.StartWindowHelp);
         }
-        private bool CanhelpAppCommandExecute(object p)
+        private bool CanHelpAppCommandExecute(object p)
         {
             return true;
         }
 
         private void OnAboutAppCommandExecuted(object obj)
         {
-            MessageBox.Show("Розробник програмного забезпечення: студент КНТЕУ 2-6 ФІТ Крупко Тарас Сергійович\n" +
-                            "Науковий керівник: Бебешко Богдан Тарасович");
+            MessageBox.Show(MyResources.AboutMessage);
         }
         private bool CanAboutAppCommandExecute(object arg)
         {

@@ -2,6 +2,7 @@
 using Calculation_of_penalties.Infrastructure;
 using Calculation_of_penalties.Infrastructure.Commands;
 using Calculation_of_penalties.Infrastructure.Commands.Base;
+using Calculation_of_penalties.Resources;
 using Calculation_of_penalties.Services;
 using Microsoft.Win32;
 
@@ -22,7 +23,7 @@ namespace Calculation_of_penalties.ViewModel
             OpenExportDialog =
                 new RelayCommand(OnOpenExportDialogAppCommandExecuted, CanOpenExportDialogAppCommandExecute);
             Exit = new RelayCommand(OnExitAppCommandExecuted,CanExitAppCommandExecute);
-            Help = new RelayCommand(OnhelpAppCommandExecuted, CanhelpAppCommandExecute);
+            Help = new RelayCommand(OnHelpAppCommandExecuted, CanHelpAppCommandExecute);
         }
 
         public StartWindowViewModel MainVM { get; set; }
@@ -89,21 +90,19 @@ namespace Calculation_of_penalties.ViewModel
 
         private void OnExitAppCommandExecuted(object p)
         {
-            App.Current.Windows[0].Close();
+            MainVM.DataView.Close();
+            App.Current.MainWindow.Show();
         }
         private bool CanExitAppCommandExecute(object p)
         {
             return true;
         }
 
-        private void OnhelpAppCommandExecuted(object p)
+        private void OnHelpAppCommandExecuted(object p)
         {
-            MessageBox.Show("1. Для розрахунку пені спочатку введіть суму нарахованих та сплачених аліментів. Після введення натисніть 'Enter'\n" +
-                            "2. Щоб зберегти поточний: файл натисніть 'Файл'-'Зберегти' та вкажіть місце і назву файлу\n" +
-                            "3. Щоб відкрити файл: натисніть 'Файл'-'Відкрити' та виберіть місце і сам файлу\n" +
-                            "4. Щоб зберегти поточні дані в файл Excel: натисніть 'Файл'-'Зберегти в Excel' та та вкажіть місце і назву файлу");
+            MessageBox.Show(MyResources.DataBaseWindowHelp);
         }
-        private bool CanhelpAppCommandExecute(object p)
+        private bool CanHelpAppCommandExecute(object p)
         {
             return true;
         }

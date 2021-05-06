@@ -61,11 +61,33 @@ namespace Calculation_of_penalties.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на Розробник програмного забезпечення: студент КНТЕУ 2-6 ФІТ Крупко Тарас Сергійович
+        ///Науковий керівник: Бебешко Богдан Тарасович&quot;.
+        /// </summary>
+        internal static string AboutMessage {
+            get {
+                return ResourceManager.GetString("AboutMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на Ошибка конвертации данных.
         /// </summary>
         internal static string ConvertError {
             get {
                 return ResourceManager.GetString("ConvertError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 1. Для розрахунку пені спочатку введіть суму нарахованих та сплачених аліментів. Після введення натисніть &apos;Enter&apos;
+        ///2. Щоб зберегти поточний: файл натисніть &apos;Файл&apos;-&apos;Зберегти&apos; та вкажіть місце і назву файлу
+        ///3. Щоб відкрити файл: натисніть &apos;Файл&apos;-&apos;Відкрити&apos; та виберіть місце і сам файлу
+        ///4. Щоб зберегти поточні дані в файл Excel: натисніть &apos;Файл&apos;-&apos;Зберегти в Excel&apos; та та вкажіть місце і назву файлу.
+        /// </summary>
+        internal static string DataBaseWindowHelp {
+            get {
+                return ResourceManager.GetString("DataBaseWindowHelp", resourceCulture);
             }
         }
         
@@ -129,6 +151,17 @@ namespace Calculation_of_penalties.Resources {
         internal static string SaveMessage {
             get {
                 return ResourceManager.GetString("SaveMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на 1. Для розрахунку пені спочатку введіть дані початку та кінця стягнення аліментів
+        ///2. У випадку, якщо сума про нараховані аліменти стала - натисніть &apos;Так&apos;, та введіть суму
+        ///3. Після введеня даних натисніть кнопку &apos;Розрахувати&apos;.
+        /// </summary>
+        internal static string StartWindowHelp {
+            get {
+                return ResourceManager.GetString("StartWindowHelp", resourceCulture);
             }
         }
     }

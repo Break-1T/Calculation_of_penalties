@@ -26,18 +26,18 @@ namespace Calculation_of_penalties.Services
                 using (var helper = new ExcelPackage(new FileInfo(Path)))
                 {
                     var firstsheet = helper.Workbook.Worksheets.Add("Нарахована пеня");
-                    firstsheet.SetValue(1, 1, "№ п/п");
-                    firstsheet.SetValue(1, 2, "Місяць/ рік");
-                    firstsheet.SetValue(1, 3, "Кількість днів");
-                    firstsheet.SetValue(1, 4, "Кількість прострочених днів");
-                    firstsheet.SetValue(1, 5, "Нарахована сума аліментів ");
-                    firstsheet.SetValue(1, 6, "Сплачена сума аліментів");
-                    firstsheet.SetValue(1, 7, "Розрахунок проплати");
-                    firstsheet.SetValue(1, 8, "Сума, на яку нараховується пеня");
-                    firstsheet.SetValue(1, 9, "Пеня,%");
-                    firstsheet.SetValue(1, 10, "Пеня,грн.");
-                    firstsheet.SetValue(1, 11, "Сума пені за прострочені дні, грн.");
-                    firstsheet.SetValue(1, 12, "Загальна сума");
+                    firstsheet.SetValue(1, 1, ExcelResuouces.Id);
+                    firstsheet.SetValue(1, 2, ExcelResuouces.Date);
+                    firstsheet.SetValue(1, 3, ExcelResuouces.DaysInMonth);
+                    firstsheet.SetValue(1, 4, ExcelResuouces.OverdueDays);
+                    firstsheet.SetValue(1, 5, ExcelResuouces.AlimentTotal);
+                    firstsheet.SetValue(1, 6, ExcelResuouces.AlimentPaid);
+                    firstsheet.SetValue(1, 7, ExcelResuouces.Overpayment);
+                    firstsheet.SetValue(1, 8, ExcelResuouces.PenaltyForSum);
+                    firstsheet.SetValue(1, 9, ExcelResuouces.PenaltyPersentage);
+                    firstsheet.SetValue(1, 10, ExcelResuouces.PenaltyValue);
+                    firstsheet.SetValue(1, 11, ExcelResuouces.EachDayPenalty);
+                    firstsheet.SetValue(1, 12, ExcelResuouces.EachYearPenalty);
 
                     int j = 2;
                     foreach (var i in list)
